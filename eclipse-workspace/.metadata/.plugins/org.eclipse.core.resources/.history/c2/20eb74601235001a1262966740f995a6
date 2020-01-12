@@ -1,4 +1,0 @@
-[BITS 32]
-
-; disclose following code to C language code
-global kReadCPUID, kSwithcAndExecute64bitKernel

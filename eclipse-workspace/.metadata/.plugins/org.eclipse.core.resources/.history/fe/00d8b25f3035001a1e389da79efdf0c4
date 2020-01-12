@@ -1,0 +1,13 @@
+/*
+ * ModeSwitch.h
+ *
+ *  Created on: 2020. 1. 12.
+ *      Author: guest-4xhiub
+ */
+
+#ifndef 01_KERNEL32_SOURCE_MODESWITCH_H_
+#define 01_KERNEL32_SOURCE_MODESWITCH_H_
+
+
+
+#endif /* 01_KERNEL32_SOURCE_MODESWITCH_H_ */

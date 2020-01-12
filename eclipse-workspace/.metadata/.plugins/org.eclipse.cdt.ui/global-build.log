@@ -6485,3 +6485,924 @@ make[1]: Leaving directory '/tmp/guest-kfqtlg/eclipse-workspace/MINT64/01.Kernel
 
 ============== All Build Complete ==============
 
+20:40:03 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+nasm -o Temp/EntryPoint.bin Source/EntryPoint.s
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+nasm -f elf32 -o ModeSwitch.o ../Source/ModeSwitch.asm
+../Source/ModeSwitch.asm:70: error: comma, colon, decorator or end of line expected after operand
+../makefile:56: recipe for target 'ModeSwitch.o' failed
+make[2]: *** [ModeSwitch.o] Error 1
+make[1]: *** [ExecuteInternalBuild] Error 2
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+makefile:24: recipe for target 'ExecuteInternalBuild' failed
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+makefile:16: recipe for target 'Kernel32' failed
+make: *** [Kernel32] Error 2
+"make all" terminated with exit code 2. Build might be incomplete.
+20:40:09 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+nasm -f elf32 -o ModeSwitch.o ../Source/ModeSwitch.asm
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2011] and fill [37] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2011] and sector count = [4]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [4]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:46:26 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+nasm -o Temp/EntryPoint.bin Source/EntryPoint.s
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2011] and fill [37] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2011] and sector count = [4]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [4]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:51:28 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+../Source/Main.c: In function 'Main':
+../Source/Main.c:44:23: error: 'dwEAX' undeclared (first use in this function); did you mean 'dwEDX'?
+     kReadCPUID(0x00, &dwEAX, &dwEBX, &dwECX, &dwEDX);
+                       ^~~~~
+                       dwEDX
+../Source/Main.c:44:23: note: each undeclared identifier is reported only once for each function it appears in
+make[2]: *** [Main.o] Error 1
+../makefile:53: recipe for target 'Main.o' failed
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[1]: *** [ExecuteInternalBuild] Error 2
+make: *** [Kernel32] Error 2
+makefile:24: recipe for target 'ExecuteInternalBuild' failed
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+makefile:16: recipe for target 'Kernel32' failed
+"make all" terminated with exit code 2. Build might be incomplete.
+20:51:46 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+../Source/Main.c: In function 'Main':
+../Source/Main.c:44:23: error: 'dwEAX' undeclared (first use in this function); did you mean 'dwEDX'?
+     kReadCPUID(0x00, &dwEAX, &dwEBX, &dwECX, &dwEDX);
+                       ^~~~~
+                       dwEDX
+../Source/Main.c:44:23: note: each undeclared identifier is reported only once for each function it appears in
+../makefile:53: recipe for target 'Main.o' failed
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: *** [Main.o] Error 1
+makefile:24: recipe for target 'ExecuteInternalBuild' failed
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+make[1]: *** [ExecuteInternalBuild] Error 2
+make: *** [Kernel32] Error 2
+makefile:16: recipe for target 'Kernel32' failed
+"make all" terminated with exit code 2. Build might be incomplete.
+20:51:59 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2059] and fill [501] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2059] and sector count = [5]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [5]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:55:30 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2196] and fill [364] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2196] and sector count = [5]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [5]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:56:20 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2216] and fill [344] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2216] and sector count = [5]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [5]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:57:25 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2212] and fill [348] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2212] and sector count = [5]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [5]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:57:34 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2212] and fill [348] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2212] and sector count = [5]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [5]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:58:08 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+nasm -f elf32 -o ModeSwitch.o ../Source/ModeSwitch.asm
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2196] and fill [364] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2196] and sector count = [5]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [5]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:58:29 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2164] and fill [396] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2164] and sector count = [5]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [5]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:58:55 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+nasm -f elf32 -o ModeSwitch.o ../Source/ModeSwitch.asm
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2196] and fill [364] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2196] and sector count = [5]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [5]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:59:33 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2199] and fill [361] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2199] and sector count = [5]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [5]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:59:52 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2199] and fill [361] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2199] and sector count = [5]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [5]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:59:55 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2199] and fill [361] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2199] and sector count = [5]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [5]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:00:22 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2199] and fill [361] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2199] and sector count = [5]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [5]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:05:21 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2481] and fill [79] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2481] and sector count = [5]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [5]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:05:33 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2481] and fill [79] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2481] and sector count = [5]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [5]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+

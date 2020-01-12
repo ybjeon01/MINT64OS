@@ -34,19 +34,23 @@ START:
     .A20GATESUCCESS:
 	    cli
 
+       ; activate control bit for 32 bit mode
+       ; disable paging, cache, internal FPU, Align Check
+       ; and enable ProtectedMode
 	    lgdt [GDTR]
-	    mov eax, 0x4000003B
-	    ; activate control bit for 32 bit mode
+	    mov eax, 0x4000003B		; PG=0, CD=1, NW=0, AM=0, WP=0, NE=1, ET=1,
+	    							; TS=1, EM=0, MP=1, PE=1
 	    mov cr0, eax
+
         ; jump to 32 bit code
-	    jmp dword 0x08: (PROTECTEDMODE - $$ + 0x10000)
+	    jmp dword 0x18: (PROTECTEDMODE - $$ + 0x10000)
 
 [BITS 32]
 
 PROTECTEDMODE:
     ; set which descriptor to use in global descriptor table
     ; below number is offset of global descriptor table
-    mov ax, 0x10
+    mov ax, 0x20
     mov ds, ax
     mov es, ax
     mov fs, ax
@@ -150,7 +154,7 @@ GDT:
     ; operations
     ; L = 1 means descriptor for 64 bit segment and 0 means
     ; descriptor for IA32-e's 32 bit compatability mode (32 bit)
-    ; for 64 bit descriptor , D must be zero, otherwise computer
+    ; For 64 bit descriptor , D must be zero, otherwise computer
     ; reboots in QEMU
     IA_32eCODEDESCRIPTOR:
         dw 0xFFFF			; Limit [15:0]
