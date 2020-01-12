@@ -1,0 +1,7 @@
+[ORG 0x00]
+[BIT 16]
+
+SECTION .text
+
+jmp &
+times 510 - ($ - $$) db 0x00

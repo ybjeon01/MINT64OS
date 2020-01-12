@@ -1,0 +1,53 @@
+17:34:55 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-kfqtlg/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-kfqtlg/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-kfqtlg/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-kfqtlg/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-kfqtlg/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-kfqtlg/eclipse-workspace/MINT64/01.Kernel32/Temp'
+nasm -f elf32 -o ModeSwitch.o ../Source/ModeSwitch.asm
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-kfqtlg/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-kfqtlg/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [1971] and fill [77] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [1971] and sector count = [4]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [4]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+
+17:34:55 Build Finished. 0 errors, 0 warnings. (took 316ms)
+

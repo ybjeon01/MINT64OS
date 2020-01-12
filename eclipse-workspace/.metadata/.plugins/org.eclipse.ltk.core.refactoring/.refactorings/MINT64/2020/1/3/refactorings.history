@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;MINT64/01.Kernel32/Source/ModeSwithc.asm&apos; to &apos;ModeSwitch.asm&apos;" description="Rename resource &apos;ModeSwithc.asm&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="01.Kernel32/Source/ModeSwithc.asm" name="ModeSwitch.asm" stamp="1578816090547" updateReferences="true"/>
+</session>

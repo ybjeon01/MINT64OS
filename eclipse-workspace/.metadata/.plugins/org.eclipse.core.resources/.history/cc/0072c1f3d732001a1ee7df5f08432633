@@ -1,0 +1,6 @@
+#include "Page.h"
+
+void kInitializePageTables(void) {
+
+}
+

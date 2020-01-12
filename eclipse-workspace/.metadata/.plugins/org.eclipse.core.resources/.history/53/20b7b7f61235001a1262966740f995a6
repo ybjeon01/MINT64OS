@@ -1,0 +1,23 @@
+[BITS 32]
+
+; disclose following code to C language
+global kReadCPUID, kSwithcAndExecute64bitKernel
+
+SECTION .text
+
+; return CPUID
+; PARAM: DWORD dwEAX, DWORD *pdwEAX, *pdwEBX, *pdwECX, *pdwEDX
+kReadCPUID:
+    ; convention for calling function in 32 bit
+    push ebp
+    push ebp, esp
+    ; saving previously used registers before using them
+    push eax
+    push ebx
+    push ecx
+    push edx
+    push esi
+
+    ; dwEAX is parameter for CPUID operation
+    mov eax, dword [dwEAX]
+    cpuid

@@ -1,0 +1,30 @@
+#include "Page.h"
+
+void kInitializePageTables(void) {
+    PML4ENTRY *pstPML4TEntry;
+    PDPTENTRY *pstPDPTEntry;
+    PDENTRY *pstPDEntry;
+    DWORD dwMappingAddress;
+    int i;
+
+    // create PML4 table
+    // set all PML4 entry with 0 except first entry
+    // for IA-32e mode, we use memory from 1MB to 2MB for
+    // page tables, stack, and etc.
+    pstPML4TEntry = (PML4ENTRY *) 0x100000;
+
+    // our PML4 table size is 4KB so first PDPTENTRY address
+    // is (1MB + 4KB) which is 0x101000 in hex
+    kSetPageEntryData(&(pstPML4TEntry[0]), 0x00, 0x101000,
+    		PAGE_FLAGS_DEFAULT, 0);
+
+    // Since we support up to 64GB, one PML4T entry is enough
+    for (i = 1; i < PAGE_MAXENTRYCOUNT; i++) {
+    	kSetPageEntryData(&(pstPML4TEntry[i]), 0, 0, 0, 0);
+    }
+}
+
+void kSetPageEntryData(PTENTRY *pstEntry, DWORD dwUpperBaseAddress,
+		DWORD dwLowerBaseAddress, DWORD dwLowerFlags, DWORD dwUpperFlags) {
+    pstEntry->dwAttributeAndLowerBaseAddress = dwLowerBaseAddress | dwLowerFlags
+}
