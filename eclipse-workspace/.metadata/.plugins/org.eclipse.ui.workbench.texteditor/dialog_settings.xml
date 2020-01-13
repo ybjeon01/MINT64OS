@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="jmp dword"/>
+		<item key="selection" value=""/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="main"/>
+			<item value="_edata"/>
+			<item value="_data"/>
+			<item value=".interp"/>
+			<item value=".data"/>
+			<item value=".rodata"/>
+			<item value=".text"/>
 			<item value="jmp dword"/>
 			<item value="ASSEMBLYOBJECTFILES"/>
 			<item value="Kernel32.elf"/>
@@ -16,20 +23,13 @@
 			<item value="SECTORNUMBER"/>
 			<item value="$$"/>
 			<item value="void kSetPageEntryData(PTENTRY *pstEntry, DWORD dwUpperBaseAddress,"/>
-			<item value="ld"/>
-			<item value="writeKernel"/>
-			<item value="ExecuteInternalBuild"/>
-			<item value="kernel32.elf"/>
-			<item value="TOTALSECTORCOUNT"/>
-			<item value="total"/>
-			<item value="totalSector"/>
 		</list>
 		<list key="replacehistory">
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="-320"/>
-		<item key="DIALOG_Y_ORIGIN" value="403"/>
+		<item key="DIALOG_X_ORIGIN" value="-170"/>
+		<item key="DIALOG_Y_ORIGIN" value="555"/>
 		<item key="DIALOG_WIDTH" value="326"/>
 		<item key="DIALOG_HEIGHT" value="419"/>
 		<item key="DIALOG_FONT_NAME" value="1|Noto Sans CJK KR|9.0|0|GTK|1|"/>

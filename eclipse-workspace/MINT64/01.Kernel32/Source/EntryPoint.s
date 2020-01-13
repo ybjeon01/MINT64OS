@@ -70,7 +70,7 @@ PROTECTEDMODE:
     add esp, 12
 
      ; code from 0x10200 is C language code
-     ; as you can expect, I decided to use 0x10200 address for
+     ; as you expect, I decided to use 0x10200 address for
      ; c language code
      ; keep in mind that EntryPoint file size must be under 512 bytes
      ; 0x18 is offset for CODEDESCRIPTOR

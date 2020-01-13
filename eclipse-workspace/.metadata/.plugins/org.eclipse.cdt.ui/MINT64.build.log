@@ -1,34 +1,37 @@
-21:05:33 **** Incremental Build of configuration Default for project MINT64 ****
+20:33:14 **** Incremental Build of configuration Default for project MINT64 ****
 make all 
 
 ============== Build Boot Loader ==============
 
 make -C 00.BootLoader
-make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
-make[1]: Nothing to be done for 'all'.
-make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Entering directory '/tmp/guest-zyr9fj/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+nasm -o BootLoader.bin BootLoader.asm
+make[1]: Leaving directory '/tmp/guest-zyr9fj/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
 ============== Build Complete ==============
 
 
 ============== Build 32bit Kernel ==============
 
 make -C 01.Kernel32
-make[1]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+make[1]: Entering directory '/tmp/guest-zyr9fj/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
 mkdir -p Temp
+nasm -o Temp/EntryPoint.bin Source/EntryPoint.s
 === Make Dependency File ===
 make -C Temp -f ../makefile InternalDependency
-make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: Entering directory '/tmp/guest-zyr9fj/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
 gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
-make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: Leaving directory '/tmp/guest-zyr9fj/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
 === Dependency Search Complete ===
 make -C Temp -f ../makefile Kernel32.elf
-make[2]: Entering directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: Entering directory '/tmp/guest-zyr9fj/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
 gcc -m32 -ffreestanding -c ../Source/Main.c
+gcc -m32 -ffreestanding -c ../Source/Page.c
+nasm -f elf32 -o ModeSwitch.o ../Source/ModeSwitch.asm
 ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
-make[2]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: Leaving directory '/tmp/guest-zyr9fj/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
 objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
 cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
-make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel32'
+make[1]: Leaving directory '/tmp/guest-zyr9fj/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
 
 ============== Build Complete ==============
 
@@ -49,5 +52,5 @@ make[1]: Leaving directory '/tmp/guest-4xhiub/eclipse-workspace/MINT64/01.Kernel
 ============== All Build Complete ==============
 
 
-21:05:33 Build Finished. 0 errors, 0 warnings. (took 319ms)
+20:33:14 Build Finished. 0 errors, 0 warnings. (took 386ms)
 

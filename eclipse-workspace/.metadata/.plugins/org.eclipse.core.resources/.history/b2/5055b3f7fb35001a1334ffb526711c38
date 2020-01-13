@@ -1,0 +1,30 @@
+NASM64 = nasm -f elf64
+GCC64 = gcc -m64 -ffreestanding
+LD64 = ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000
+OBJCOPY64 = objcopy -j .text -j .data -j .rodata -j .bss -S -O binary
+
+OBJECTDIRECTORY = Temp
+SOURCEDIRECTORY = Source
+
+all : prepare Kernel64.bin
+
+prepare:
+	mkdir -p $(OBJECTDIRECTORY)
+	
+dep:
+	@echo ===    Make Dependency File    ===
+	make -C $(OBJECTDIRECTORY) -f ../makefile InternalDependency
+	@echo === Dependency Search Complete ===
+
+ExecuteInternalBuild: dep
+	make -C $(OBJECTDIRECTORY) -f ../makefile Kernel64.elf
+
+Kernel64.bin: ExcuteInternalBuild
+	$(OBJCOPY64) $(OBJECTDIRECORY)/Kernel64.elf $@
+	
+clean:
+	rm -f *.bin
+	rm -f $(OBJECTDIRECTORY)/*.*
+
+	
+ENTRYPOINTSOURCEFILE = ../$(SOURCEDIRECTORY)/EntryPoint.s
