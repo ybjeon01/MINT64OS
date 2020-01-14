@@ -5,6 +5,7 @@
 void kPrintString(int iX, int iY, const char *pcString);
 BOOL kIsMemoryEnough(void);
 BOOL kInitializeKernel64Area(void);
+void kCopyKernel64ImageTo2Mbyte(void);
 void kPrintHex(int iX, int iY, DWORD value);
 
 
@@ -64,12 +65,16 @@ void Main(void) {
     	while (1);
     }
 
+    // copy IA-32e mode kernel in somewhere under address 1MiB
+    // to 0x200000 (2Mbyte)
+    kPrintString(0, 9, "Copy IA-32e Kernel To 2M Address............[    ]");
+    kCopyKernel64ImageTo2Mbyte();
+    kPrintString(45, 9, "Pass");
+
+
     // convert to IA-32e mode
     kPrintString(0, 9, "Switch To IA-32e Mode");
-    // currently I do not have 64 bit kernel code,
-    // so I commented below function
-    // stopped at page 293
-    // kSwitchAndExecute64BitKernel();
+    kSwitchAndExecute64bitKernel();
 
 	while (1);
 
@@ -121,6 +126,32 @@ BOOL kIsMemoryEnough(void) {
        pdwCurrentAddress += (0x100000 / 4);
 	}
 	return TRUE;
+}
+
+// Copy IA-32e mode kernel somewhere under address 1MB
+// to 0x20000 (2Mbyte)
+void kCopyKernel64ImageTo2Mbyte(void) {
+    WORD wKernel32SectorCount, wTotalKernelSectorCount;
+    DWORD * pdwSourceAddress, *pdwDestinationAddress;
+    int i;
+    int iKernel64ByteCount;
+
+    // count of overall sectors except booloader is at
+    // 0x7c05 and count of protected mode kernel is at
+    // 0x7c07
+    wTotalKernelSectorCount = *((WORD *) 0x7c05);
+    wKernel32SectorCount = *((WORD *) 0x7c07);
+
+    pdwSourceAddress = (DWORD *) (0x10000 + (wKernel32SectorCount * 512));
+    pdwDestinationAddress = (DWORD *) 0x200000;
+
+    iKernel64ByteCount = 512 * (wTotalKernelSectorCount - wKernel32SectorCount);
+    for (i = 0; i < iKernel64ByteCount / 4; i++) {
+    	// copy 4 bytes at once
+    	*pdwDestinationAddress = *pdwSourceAddress;
+    	pdwDestinationAddress++;
+    	pdwSourceAddress++;
+    }
 }
 
 BYTE IntegerToHex(BYTE integer);

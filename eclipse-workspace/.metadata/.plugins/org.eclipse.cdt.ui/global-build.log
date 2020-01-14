@@ -7512,3 +7512,1212 @@ make[1]: Leaving directory '/tmp/guest-zyr9fj/MINT64OS/eclipse-workspace/MINT64/
 
 ============== All Build Complete ==============
 
+20:33:17 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+nasm -o BootLoader.bin BootLoader.asm
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+nasm -o Temp/EntryPoint.bin Source/EntryPoint.s
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+../Source/Main.c: In function 'Main':
+../Source/Main.c:77:5: warning: implicit declaration of function 'kSwitchAndExecute64BitKernel'; did you mean 'kSwitchAndExecute64bitKernel'? [-Wimplicit-function-declaration]
+     kSwitchAndExecute64BitKernel();
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     kSwitchAndExecute64bitKernel
+gcc -m32 -ffreestanding -c ../Source/Page.c
+nasm -f elf32 -o ModeSwitch.o ../Source/ModeSwitch.asm
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+Main.o: In function `Main':
+Main.c:(.text+0x23c): undefined reference to `kSwitchAndExecute64BitKernel'
+../makefile:50: recipe for target 'Kernel32.elf' failed
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: *** [Kernel32.elf] Error 1
+make[1]: *** [ExecuteInternalBuild] Error 2
+make: *** [Kernel32] Error 2
+makefile:24: recipe for target 'ExecuteInternalBuild' failed
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+makefile:16: recipe for target 'Kernel32' failed
+"make all" terminated with exit code 2. Build might be incomplete.
+20:34:05 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+makefile:53: *** invalid syntax in conditional.  Stop.
+makefile:27: recipe for target 'Kernel64' failed
+make: *** [Kernel64] Error 2
+"make all" terminated with exit code 2. Build might be incomplete.
+20:34:30 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+makefile:53: *** invalid syntax in conditional.  Stop.
+makefile:27: recipe for target 'Kernel64' failed
+make: *** [Kernel64] Error 2
+"make all" terminated with exit code 2. Build might be incomplete.
+20:34:59 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+make[1]: *** No rule to make target 'ExcuteInternalBuild', needed by 'Kernel64.bin'.  Stop.
+makefile:27: recipe for target 'Kernel64' failed
+make: *** [Kernel64] Error 2
+"make all" terminated with exit code 2. Build might be incomplete.
+20:35:33 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM  > Dependency.dep
+gcc: fatal error: no input files
+compilation terminated.
+make[2]: *** [InternalDependency] Error 1
+../makefile:48: recipe for target 'InternalDependency' failed
+make[1]: *** [dep] Error 2
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+make: *** [Kernel64] Error 2
+makefile:15: recipe for target 'dep' failed
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+makefile:27: recipe for target 'Kernel64' failed
+"make all" terminated with exit code 2. Build might be incomplete.
+20:36:46 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM  > Dependency.dep
+gcc: fatal error: no input files
+compilation terminated.
+../makefile:48: recipe for target 'InternalDependency' failed
+make[2]: *** [InternalDependency] Error 1
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+make[1]: *** [dep] Error 2
+make: *** [Kernel64] Error 2
+makefile:15: recipe for target 'dep' failed
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+makefile:27: recipe for target 'Kernel64' failed
+"make all" terminated with exit code 2. Build might be incomplete.
+20:37:03 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c > Dependency.dep
+../Source/Main.c:2:10: fatal error: Page.h: No such file or directory
+../makefile:48: recipe for target 'InternalDependency' failed
+ #include "Page.h"
+          ^~~~~~~~
+compilation terminated.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+makefile:15: recipe for target 'dep' failed
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+makefile:27: recipe for target 'Kernel64' failed
+make[2]: *** [InternalDependency] Error 1
+make[1]: *** [dep] Error 2
+make: *** [Kernel64] Error 2
+"make all" terminated with exit code 2. Build might be incomplete.
+20:37:26 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c > Dependency.dep
+../Source/Main.c:2:10: fatal error: ModeSwitch.h: No such file or directory
+ #include "ModeSwitch.h"
+          ^~~~~~~~~~~~~~
+../makefile:48: recipe for target 'InternalDependency' failed
+compilation terminated.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+makefile:15: recipe for target 'dep' failed
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+makefile:27: recipe for target 'Kernel64' failed
+make[2]: *** [InternalDependency] Error 1
+make[1]: *** [dep] Error 2
+make: *** [Kernel64] Error 2
+"make all" terminated with exit code 2. Build might be incomplete.
+20:37:37 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+nasm -f elf64 -o EntryPoint.o ../Source/EntryPoint.s
+gcc -m64 -ffreestanding -c ../Source/Main.c
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o
+ld:../elf_x86_64.x:20: syntax error
+../makefile:51: recipe for target 'Kernel64.elf' failed
+make[2]: *** [Kernel64.elf] Error 1
+make[1]: *** [ExecuteInternalBuild] Error 2
+make: *** [Kernel64] Error 2
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+makefile:20: recipe for target 'ExecuteInternalBuild' failed
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+makefile:27: recipe for target 'Kernel64' failed
+"make all" terminated with exit code 2. Build might be incomplete.
+20:41:17 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary /Kernel64.elf Kernel64.bin
+objcopy: '/Kernel64.elf': No such file
+makefile:23: recipe for target 'Kernel64.bin' failed
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+make[1]: *** [Kernel64.bin] Error 1
+makefile:27: recipe for target 'Kernel64' failed
+make: *** [Kernel64] Error 2
+"make all" terminated with exit code 2. Build might be incomplete.
+20:42:47 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+make[2]: 'Kernel64.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2709] and fill [363] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2709] and sector count = [6]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [298] and fill [214] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [298] and sector count = [1]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [7]
+[INFO] Total sector count of protected mode kernel [7]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+make[2]: 'Kernel64.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Utility Build Complete ==============
+
+20:44:07 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+make[2]: 'Kernel64.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+make[2]: 'Kernel64.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+makefile:49: recipe for target 'Disk.img' failed
+make: 04.Utility/ImageMaker: Command not found
+make: *** [Disk.img] Error 127
+"make all" terminated with exit code 2. Build might be incomplete.
+20:46:56 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+make[2]: 'Kernel64.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+gcc -o ImageMaker ImageMaker.c
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2709] and fill [363] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2709] and sector count = [6]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [298] and fill [214] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [298] and sector count = [1]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [7]
+[INFO] Total sector count of protected mode kernel [7]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:47:31 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2709] and fill [363] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2709] and sector count = [6]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [299] and fill [213] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [299] and sector count = [1]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [7]
+[INFO] Total sector count of protected mode kernel [7]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:53:38 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+../Source/Main.c: In function 'Main':
+../Source/Main.c:8:25: warning: passing argument 3 of 'kPrintString' makes pointer from integer without a cast [-Wint-conversion]
+     kPrintString(0, 12, sizeof(int));
+                         ^~~~~~
+../Source/Main.c:3:6: note: expected 'const char *' but argument is of type 'long unsigned int'
+ void kPrintString(int iX, int iY, const char *pcString);
+      ^~~~~~~~~~~~
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2709] and fill [363] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2709] and sector count = [6]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [315] and fill [197] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [315] and sector count = [1]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [7]
+[INFO] Total sector count of protected mode kernel [7]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:54:16 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2709] and fill [363] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2709] and sector count = [6]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [315] and fill [197] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [315] and sector count = [1]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [7]
+[INFO] Total sector count of protected mode kernel [7]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:54:50 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2709] and fill [363] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2709] and sector count = [6]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [315] and fill [197] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [315] and sector count = [1]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [7]
+[INFO] Total sector count of protected mode kernel [7]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:00:46 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o
+ld: warning: cannot find entry symbol _start; defaulting to 0000000000200000
+make[2]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2709] and fill [363] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2709] and sector count = [6]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [299] and fill [213] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [299] and sector count = [1]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [7]
+[INFO] Total sector count of protected mode kernel [7]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+

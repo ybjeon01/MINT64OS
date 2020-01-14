@@ -1,5 +1,7 @@
 NASM64 = nasm -f elf64
 GCC64 = gcc -m64 -ffreestanding
+# if Main is entry for 64 bit kernel, then where is entryPoint placed?
+# and interestingly removing "-e Main" does not affect on running kernel
 LD64 = ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000
 OBJCOPY64 = objcopy -j .text -j .data -j .rodata -j .bss -S -O binary
 
@@ -19,8 +21,8 @@ dep:
 ExecuteInternalBuild: dep
 	make -C $(OBJECTDIRECTORY) -f ../makefile Kernel64.elf
 
-Kernel64.bin: ExcuteInternalBuild
-	$(OBJCOPY64) $(OBJECTDIRECORY)/Kernel64.elf $@
+Kernel64.bin: ExecuteInternalBuild
+	$(OBJCOPY64) $(OBJECTDIRECTORY)/Kernel64.elf $@
 	
 clean:
 	rm -f *.bin
@@ -30,7 +32,7 @@ clean:
 ENTRYPOINTSOURCEFILE = ../$(SOURCEDIRECTORY)/EntryPoint.s
 ENTRYPOINTOBJECTFILE = EntryPoint.o
 
-CSOURCEFILE = $(wildcard ../$(SOURCDIRECTORY)/*.c)
+CSOURCEFILES = $(wildcard ../$(SOURCEDIRECTORY)/*.c)
 ASSERMBLYSOURCEFILES = $(wildcard ../$(SOURCEDIRECTORY)/.asm)
 COBJECTFILES = $(notdir $(patsubst %.c, %.o, $(CSOURCEFILES)))
 ASSEMBLYOBJECTFILES = $(notdir $(patsubst %.asm, %.o, $(ASSEMBLYSOURCEFILES)))
@@ -50,7 +52,7 @@ InternalDependency:
 Kernel64.elf: $(ENTRYPOINTOBJECTFILE) $(COBJECTFILES) $(ASSEMBLYOBJECTFILES)
 	$(LD64) -o $@ $^
 	
-ifeq (Dependency.dep $(wildcard Dependency.dep))
+ifeq (Dependency.dep, $(wildcard Dependency.dep))
 include Dependency.dep
 endif
 

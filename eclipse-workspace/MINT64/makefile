@@ -1,6 +1,6 @@
 .PHONY: all clean run
 
-all: BootLoader Kernel32 Kernel64 Disk.img Utility
+all: BootLoader Kernel32 Kernel64 Utility Disk.img
 
 BootLoader:
 	@echo
@@ -39,7 +39,7 @@ Utility:
 	@echo ============== Utility Build Start ==============
 	@echo
 	
-	make -C 02.Kernel64
+	make -C 04.Utility
 	
 	@echo 
 	@echo ============== Utility Build Complete ==============

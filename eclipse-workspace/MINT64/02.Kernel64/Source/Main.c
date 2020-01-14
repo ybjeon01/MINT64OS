@@ -1,13 +1,10 @@
 #include "Types.h"
-#include "Page.h"
-#include "ModeSwitch.h"
 
 void kPrintString(int iX, int iY, const char *pcString);
 
 void Main(void) {
     kPrintString(0, 10, "Switch To IA-32e Mode Success~!!");
-    kPrintString(0, 11, "IA-32e C Language Kenrel Start.............[PASS]");
-
+    kPrintString(0, 11, "IA-32e C Language Kernel Start............. [PASS]");
 }
 
 void kPrintString(int iX, int iY, const char *pcString) {

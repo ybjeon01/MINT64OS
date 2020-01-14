@@ -8,7 +8,8 @@
 SECTION .text
 
 ; the code in this file is loaded at address 0x10000 on purpose
-; because I decided to use the address from 1 MiB for 32 bit kernel
+; because I decided to use the address from 1 MiB to 0x10000
+; for 32 bit kernel
 START:
     mov ax, 0x1000
     mov ds, ax

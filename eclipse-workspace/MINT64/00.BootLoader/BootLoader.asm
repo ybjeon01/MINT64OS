@@ -9,6 +9,7 @@ jmp 0x07C0:START
 ; Utility Tool, ImageMaker measure the size of the overall binary file
 ; and change the TOTALSECTORCOUNT based on the size
 TOTALSECTORCOUNT: dw 0
+KERNEL32SECTORCOUNT: dw 0
 
 START:
     mov ax, 0x07C0
