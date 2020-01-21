@@ -1,9 +1,0 @@
-[BITS 64]
-
-Section .text
-
-extern Main
-
-START:
-    mov ax, 0x10					; IA-32e mode's data segment
-    mov ds, ax

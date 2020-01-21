@@ -359,7 +359,7 @@ BOOL kShouldUseCombinedCode(BYTE bScanCode) {
 }
 
 //
-void updateCombinnationKeyStatusAndLED(BYTE bScanCode) {
+void UpdateCombinnationKeyStatusAndLED(BYTE bScanCode) {
     BOOL bDown;
     BYTE bDownScanCode;
     BOOL bLEDStatusChanged = FALSE;
@@ -408,7 +408,7 @@ void updateCombinnationKeyStatusAndLED(BYTE bScanCode) {
 // convert scan code to ASCII code
 BOOL kConverScanCodeToASCIICode(BYTE bScanCode, BYTE *pbASCIICode,
 		                         BOOL *pbFlags) {
-    BOOL bUseCombinedKey;
+    BOOL bUSECombinedKey;
 
     // if pause key was pressed, ignore scan code as many as
     // number of pressed paused key
@@ -427,39 +427,9 @@ BOOL kConverScanCodeToASCIICode(BYTE bScanCode, BYTE *pbASCIICode,
         gs_stKeyboardmanager.iSkipCountForPause = KEY_SKIPCOUNTFORPAUSE;
         return TRUE;
     }
-    // if scan code is 0xE0, then set only flags, you can find
-    // extension key by calling this function one more
-    else if (bScanCode == 0xE0) {
-    	gs_stKeyboardManager.bExtendedCodeIn = TRUE;
-    	return FALSE;
-    }
 
-    // check if it should return combined key
-    bUseCombinedKey = kShouldUseCombinedCode(bScanCode);
+    // if scan code is 0xE0, then set only flags
 
-    if (bUseCombinedKey) {
-    	*pbASCIICode = gs_vstKeyMappingTable[bScanCode & 0x7F].bCombinedCode;
-    }
-    else {
-    	*pbASCIICode = gs_vstKeyMappingTable[bScanCode & 0x7F].bNormalCode;
-    }
-
-    // check if extension key
-    if (gs_stKeyboardManager.bExtendedCodeIn) {
-    	*pbFlags = KEY_FLAGS_EXTENDEDKEY;
-    	gs_stKeyboardManager.bExtendedCodeIn = FALSE;
-    }
-    else {
-    	*pbFlags = 0;
-    }
-
-    if (bScanCode & 0x80 == 0) {
-    	*pbFlags |= KEY_FLAGS_DOWN;
-    }
-
-    // update combined key press or release state
-    updateCombinationKeyStatusAndLED(bScanCode);
-    return TRUE;
 }
 
 

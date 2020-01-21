@@ -458,8 +458,7 @@ BOOL kConverScanCodeToASCIICode(BYTE bScanCode, BYTE *pbASCIICode,
     }
 
     // update combined key press or release state
-    updateCombinationKeyStatusAndLED(bScanCode);
-    return TRUE;
+    UpdateCombine
 }
 
 

@@ -320,8 +320,7 @@ BOOL kShouldUseCombinedCode(BYTE bScanCode) {
 	BOOL bUseCombinedKey = FALSE;
 
 	// 0x7F = 0b01111111
-	// when you release key, keyboard send pressed scan code with
-	// 0x100000000
+	// shift key set 0b10000000 and other code is stored in rest bits
 	bDownScanCode = bScanCode & 0x7F;
 
 	// alphabet is affected by shift key and Caps Lock
@@ -354,135 +353,9 @@ BOOL kShouldUseCombinedCode(BYTE bScanCode) {
             return FALSE;
         }
 	}
-	// should not hit here. Just in case I made a mistake in code
+	// just default value in case I made a mistake in code
 	return FALSE;
 }
-
-//
-void updateCombinnationKeyStatusAndLED(BYTE bScanCode) {
-    BOOL bDown;
-    BYTE bDownScanCode;
-    BOOL bLEDStatusChanged = FALSE;
-
-    // check if key is pressed or released by checking the last bit of
-    // scan code (0x10000000)
-    if (bScanCode & 0x80) {
-        bDown = FALSE;
-        bDownScanCode = bScanCode & 0x7F;
-    }
-    else {
-    	bDown = TRUE;
-    	bDownScanCode = bScanCode;
-    }
-
-    // check if the last scan code is shift key or Caps Lock
-    // or Num Lock or Scroll Lock
-    // Shift Scan code
-    if (bDownScanCode == 42 || bDownScanCode == 54) {
-    	gs_stKeyboardManager.bShiftDown = bDown;
-    }
-    // Caps Lock Scan code
-    else if (bDownScanCode == 58 && bDown == True) {
-        gs_stKeyboardManager.bCapsLockOn ^= TRUE;
-        bLEDStatusChanged = TRUE;
-    }
-    // Num Lock Scan code
-    else if (bDownScanCode == 69 && bDown == TRUE) {
-        gs_stKeyboardManager.bNumLockOn ^= TRUE;
-        bLEDStatusChanged = TRUE;
-    }
-    // Scroll Lock Scan code
-    else if (bDownScanCode == 70 && bDown == TRUE) {
-    	gs_stKeyboardManager.bScrollLockOn ^= TRUE;
-    	bLEDStatusChanged = TRUE;
-    }
-
-    // send command to keyboard if LED status is changed
-    if (bLEDStatusChanged) {
-    	kChangeKeyboardLED(gs_stKeyboardManager.bCapsLockOn,
-    			            gs_stKeyboardManager.bnumLockOn,
-                          gs_stKeyboardManager.bScrollLockOn);
-    }
-}
-
-// convert scan code to ASCII code
-BOOL kConverScanCodeToASCIICode(BYTE bScanCode, BYTE *pbASCIICode,
-		                         BOOL *pbFlags) {
-    BOOL bUseCombinedKey;
-
-    // if pause key was pressed, ignore scan code as many as
-    // number of pressed paused key
-    if (gs_stKeyboardManager.iSkipCountForPause > 0) {
-        gs_stKeyboardManager.iSkipCountForPause--;
-        return FALSE;
-    }
-
-    // process Pause Scan code
-    // pause is extension key and every extension key
-    // is consisted of two bytes which starts with 0xE0 or 0xE1
-    // only pause key is started with 0xE1
-    if (bScanCode == 0xE1) {
-        *pbASCIICode = KEY_PAUSE;
-        *pbFlags = KEY_FLAGS_DOWN;
-        gs_stKeyboardmanager.iSkipCountForPause = KEY_SKIPCOUNTFORPAUSE;
-        return TRUE;
-    }
-    // if scan code is 0xE0, then set only flags, you can find
-    // extension key by calling this function one more
-    else if (bScanCode == 0xE0) {
-    	gs_stKeyboardManager.bExtendedCodeIn = TRUE;
-    	return FALSE;
-    }
-
-    // check if it should return combined key
-    bUseCombinedKey = kShouldUseCombinedCode(bScanCode);
-
-    if (bUseCombinedKey) {
-    	*pbASCIICode = gs_vstKeyMappingTable[bScanCode & 0x7F].bCombinedCode;
-    }
-    else {
-    	*pbASCIICode = gs_vstKeyMappingTable[bScanCode & 0x7F].bNormalCode;
-    }
-
-    // check if extension key
-    if (gs_stKeyboardManager.bExtendedCodeIn) {
-    	*pbFlags = KEY_FLAGS_EXTENDEDKEY;
-    	gs_stKeyboardManager.bExtendedCodeIn = FALSE;
-    }
-    else {
-    	*pbFlags = 0;
-    }
-
-    if (bScanCode & 0x80 == 0) {
-    	*pbFlags |= KEY_FLAGS_DOWN;
-    }
-
-    // update combined key press or release state
-    updateCombinationKeyStatusAndLED(bScanCode);
-    return TRUE;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

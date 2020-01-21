@@ -359,7 +359,7 @@ BOOL kShouldUseCombinedCode(BYTE bScanCode) {
 }
 
 //
-void updateCombinnationKeyStatusAndLED(BYTE bScanCode) {
+void UpdateCombinnationKeyStatusAndLED(BYTE bScanCode) {
     BOOL bDown;
     BYTE bDownScanCode;
     BOOL bLEDStatusChanged = FALSE;
@@ -456,10 +456,6 @@ BOOL kConverScanCodeToASCIICode(BYTE bScanCode, BYTE *pbASCIICode,
     if (bScanCode & 0x80 == 0) {
     	*pbFlags |= KEY_FLAGS_DOWN;
     }
-
-    // update combined key press or release state
-    updateCombinationKeyStatusAndLED(bScanCode);
-    return TRUE;
 }
 
 

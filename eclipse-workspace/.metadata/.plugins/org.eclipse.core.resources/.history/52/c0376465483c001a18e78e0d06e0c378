@@ -1,0 +1,16 @@
+#ifndef __KEYBOARD_H__
+#define __KEYBOARD_H__
+
+#include "Types.h"
+
+// number of scan code to ignore when pause key is pressed
+#define KEY_SKIPCOUNTFORPAUSE 2
+
+// flag for key state
+#define KEY_FLAGS_UP 0x00  // when key is released
+#define KEY_FLAGS_DOWN 0x01 // when key is pressed
+#define KEY_FLAGS_EXTENDEDKEY // when extension key is pressed
+
+
+// table mapping scan code to ASCII code
+#define KEY_MAPPINGTABLEMAXCOUNT 89

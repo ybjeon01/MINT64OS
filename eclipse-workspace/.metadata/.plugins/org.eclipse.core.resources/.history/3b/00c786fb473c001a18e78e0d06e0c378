@@ -1,0 +1,11 @@
+#ifndef __KEYBOARD_H__
+#define __KEYBOARD_H__
+
+#include "Types.h"
+
+// number of scan code to ignore when pause key is pressed
+#define KEY_SKIPCOUNTFORPAUSE 2
+
+
+#define KEY_FLAGS_UP 0x00
+#define KEY_FLAGS_DOWN 0x01
