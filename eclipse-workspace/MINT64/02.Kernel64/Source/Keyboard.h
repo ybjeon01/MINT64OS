@@ -9,7 +9,7 @@
 // flag for key state
 #define KEY_FLAGS_UP 0x00  // when key is released
 #define KEY_FLAGS_DOWN 0x01 // when key is pressed
-#define KEY_FLAGS_EXTENDEDKEY // when extension key is pressed
+#define KEY_FLAGS_EXTENDEDKEY 0x02 // when extension key is pressed
 
 
 // number of table mapping scan code to ASCII code
@@ -56,8 +56,42 @@
 #define KEY_F12         0x9F
 #define KEY_PAUSE       0xA0
 
-// ended here. start from here again
+#pragma pack(push ,1)
 
+typedef struct kKeyMappingEntryStruct {
+	// normal ASCII code that is not combined with shift or Caps Lock
+	BYTE bNormalCode;
+	// key combined with shift or Caps Lock
+	BYTE bCombinedCode;
+} KEYMAPPINGENTRY;
 
+#pragma pack(pop)
 
+typedef struct kKeyboardManagerStruct {
+	// current state of keyboard
+	BOOL bShiftDown;
+	BOOL bCapsLockOn;
+	BOOL bNumLockOn;
+	BOOL bScrollLockOn;
+
+	// set if first byte coming from keyboard is extended code
+	BOOL bExtendedCodeIn;
+	// used when pause key code come from keyboard
+	int iSkipCountForPause;
+} KEYBOARDMANAGER;
+
+BOOL kIsOutputBufferFULL(void);
+BOOL kIsInputBufferFULL(void);
+BOOL kActivateKeyboard(void);
+BYTE kGetKeyboardScanCode(void);
+BOOL kChangeKeyboardLED(BOOL bCapsLockOn, BOOL bNumLokOn, BOOL bScrollLockOn);
+void kEnableA20Gate(void);
+void kRebot(void);
+BOOL kIsAlphabetscanCode(BYTE bScanCode);
+BOOL kIsNumberOrSymbolScanCode(BYTE bScanCode);
+BOOL kShouldUseCombinedCode(BYTE bScanCode);
+void updateCombinationkeyStatusAndLED(BYTE bScanCode);
+BOOL kConvertScanCodeToASCIICode(BYTE bScanCode, BYTE *pbASCIICode, BOOL *pbFlags);
+
+#endif /* __KEYBOARD_H__ */
 

@@ -40,12 +40,12 @@ BOOL kActivateKeyboard(void) {
     // notify keyboard controller that user is going to
     // use keyboard device by sending 0xAE command to
     // control register
-    // reading from 0x64 returns state register and
-    // writing to 0x64 means writing to control register
-    kOutPortByte(0x64 0xAE);
+    // info: reading from 0x64 returns state register and
+    //       writing to 0x64 means writing to control register
+    kOutPortByte(0x64, 0xAE);
 
     // keyboard activation command to keyboard
-    sendCommandToKeyboard(0xF4);
+    return sendCommandToKeyboard(0xF4);
 
 }
 
@@ -346,7 +346,7 @@ BOOL kShouldUseCombinedCode(BYTE bScanCode) {
 	// In case that Num Lock is activated, number pad except
 	// extended number pad scan code is affected by shift key
 	if (kIsNumberPadScanCode(bDownScanCode) &&
-		gs_stkeyboardManager.bExtendedCodeIn == FALSE) {
+		gs_stKeyboardManager.bExtendedCodeIn == FALSE) {
         if (gs_stKeyboardManager.bNumLockOn) {
         	return TRUE;
         }
@@ -382,7 +382,7 @@ void updateCombinnationKeyStatusAndLED(BYTE bScanCode) {
     	gs_stKeyboardManager.bShiftDown = bDown;
     }
     // Caps Lock Scan code
-    else if (bDownScanCode == 58 && bDown == True) {
+    else if (bDownScanCode == 58 && bDown == TRUE) {
         gs_stKeyboardManager.bCapsLockOn ^= TRUE;
         bLEDStatusChanged = TRUE;
     }
@@ -400,7 +400,7 @@ void updateCombinnationKeyStatusAndLED(BYTE bScanCode) {
     // send command to keyboard if LED status is changed
     if (bLEDStatusChanged) {
     	kChangeKeyboardLED(gs_stKeyboardManager.bCapsLockOn,
-    			            gs_stKeyboardManager.bnumLockOn,
+    			            gs_stKeyboardManager.bNumLockOn,
                           gs_stKeyboardManager.bScrollLockOn);
     }
 }
@@ -424,7 +424,7 @@ BOOL kConverScanCodeToASCIICode(BYTE bScanCode, BYTE *pbASCIICode,
     if (bScanCode == 0xE1) {
         *pbASCIICode = KEY_PAUSE;
         *pbFlags = KEY_FLAGS_DOWN;
-        gs_stKeyboardmanager.iSkipCountForPause = KEY_SKIPCOUNTFORPAUSE;
+        gs_stKeyboardManager.iSkipCountForPause = KEY_SKIPCOUNTFORPAUSE;
         return TRUE;
     }
     // if scan code is 0xE0, then set only flags, you can find

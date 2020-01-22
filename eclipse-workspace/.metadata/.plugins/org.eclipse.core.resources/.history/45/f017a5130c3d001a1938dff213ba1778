@@ -1,0 +1,4 @@
+#ifndef __ASSEMBLYUTILITY_H__
+#define __ASSEMBLYUTILITY_H__
+
+BYTE kInportByte(WORD wPort);

@@ -8721,3 +8721,18 @@ make[1]: Leaving directory '/tmp/guest-tduxt5/MINT64OS/eclipse-workspace/MINT64/
 
 ============== All Build Complete ==============
 
+20:43:53 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-irmcxh/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+nasm -o BootLoader.bin BootLoader.asm
+make[1]: nasm: Command not found
+makefile:4: recipe for target 'BootLoader.bin' failed
+make[1]: Leaving directory '/tmp/guest-irmcxh/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: *** [BootLoader.bin] Error 127
+make: *** [BootLoader] Error 2
+makefile:6: recipe for target 'BootLoader' failed
+"make all" terminated with exit code 2. Build might be incomplete.
