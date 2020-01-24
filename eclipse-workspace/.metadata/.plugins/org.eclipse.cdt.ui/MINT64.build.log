@@ -1,18 +1,88 @@
-20:43:53 **** Incremental Build of configuration Default for project MINT64 ****
+01:08:53 **** Incremental Build of configuration Default for project MINT64 ****
 make all 
 
 ============== Build Boot Loader ==============
 
 make -C 00.BootLoader
-make[1]: Entering directory '/tmp/guest-irmcxh/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
-nasm -o BootLoader.bin BootLoader.asm
-make[1]: nasm: Command not found
-makefile:4: recipe for target 'BootLoader.bin' failed
-make[1]: Leaving directory '/tmp/guest-irmcxh/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
-make[1]: *** [BootLoader.bin] Error 127
-make: *** [BootLoader] Error 2
-makefile:6: recipe for target 'BootLoader' failed
-"make all" terminated with exit code 2. Build might be incomplete.
+make[1]: Entering directory '/home/ybjeon01/Documents/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/home/ybjeon01/Documents/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
 
-20:43:53 Build Failed. 5 errors, 0 warnings. (took 285ms)
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/home/ybjeon01/Documents/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/home/ybjeon01/Documents/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/home/ybjeon01/Documents/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/home/ybjeon01/Documents/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/home/ybjeon01/Documents/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/home/ybjeon01/Documents/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/home/ybjeon01/Documents/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/home/ybjeon01/Documents/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/home/ybjeon01/Documents/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/home/ybjeon01/Documents/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Keyboard.c
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Keyboard.o AssemblyUtility.o
+make[2]: Leaving directory '/home/ybjeon01/Documents/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/home/ybjeon01/Documents/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/home/ybjeon01/Documents/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/home/ybjeon01/Documents/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2437] and fill [123] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2437] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [2738] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [2738] and sector count = [6]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [11]
+[INFO] Total sector count of protected mode kernel [11]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+
+01:08:53 Build Finished. 0 errors, 0 warnings. (took 253ms)
 
