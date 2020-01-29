@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ASCII"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_PjaSECPoEeqFJu9gI1iFDw" elementId="org.eclipse.e4.legacy.ide.application" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_PjaSESPoEeqFJu9gI1iFDw" bindingContexts="_Pja7tyPoEeqFJu9gI1iFDw">
-  <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workbench>&#xA;&lt;mruList>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;Keyboard.c&quot; tooltip=&quot;MINT64/02.Kernel64/Source/Keyboard.c&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Source/Keyboard.c&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;Keyboard.h&quot; tooltip=&quot;MINT64/02.Kernel64/Source/Keyboard.h&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Source/Keyboard.h&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.asm.AsmEditor&quot; name=&quot;EntryPoint.s&quot; tooltip=&quot;MINT64/02.Kernel64/Source/EntryPoint.s&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Source/EntryPoint.s&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.asm.AsmEditor&quot; name=&quot;BootLoader.asm&quot; tooltip=&quot;MINT64/00.BootLoader/BootLoader.asm&quot;>&#xA;&lt;persistable path=&quot;/MINT64/00.BootLoader/BootLoader.asm&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.asm.AsmEditor&quot; name=&quot;EntryPoint.s&quot; tooltip=&quot;MINT64/01.Kernel32/Source/EntryPoint.s&quot;>&#xA;&lt;persistable path=&quot;/MINT64/01.Kernel32/Source/EntryPoint.s&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;Main.c&quot; tooltip=&quot;MINT64/01.Kernel32/Source/Main.c&quot;>&#xA;&lt;persistable path=&quot;/MINT64/01.Kernel32/Source/Main.c&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;Types.h&quot; tooltip=&quot;MINT64/02.Kernel64/Source/Types.h&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Source/Types.h&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.make.editor&quot; name=&quot;makefile&quot; tooltip=&quot;MINT64/makefile&quot;>&#xA;&lt;persistable path=&quot;/MINT64/makefile&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.asm.AsmEditor&quot; name=&quot;ModeSwitch.asm&quot; tooltip=&quot;MINT64/01.Kernel32/Source/ModeSwitch.asm&quot;>&#xA;&lt;persistable path=&quot;/MINT64/01.Kernel32/Source/ModeSwitch.asm&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.asm.AsmEditor&quot; name=&quot;AssemblyUtility.asm&quot; tooltip=&quot;MINT64/02.Kernel64/Source/AssemblyUtility.asm&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Source/AssemblyUtility.asm&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.ui.DefaultTextEditor&quot; name=&quot;Dependency.dep&quot; tooltip=&quot;MINT64/02.Kernel64/Temp/Dependency.dep&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Temp/Dependency.dep&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.binaryEditor&quot; name=&quot;Main.o&quot; tooltip=&quot;MINT64/02.Kernel64/Temp/Main.o&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Temp/Main.o&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.make.editor&quot; name=&quot;makefile&quot; tooltip=&quot;MINT64/02.Kernel64/makefile&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/makefile&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;Main.c&quot; tooltip=&quot;MINT64/02.Kernel64/Source/Main.c&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Source/Main.c&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;AssemblyUtility.h&quot; tooltip=&quot;MINT64/02.Kernel64/Source/AssemblyUtility.h&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Source/AssemblyUtility.h&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.ui.DefaultTextEditor&quot; name=&quot;Kernel32.bin&quot; tooltip=&quot;MINT64/01.Kernel32/Kernel32.bin&quot;>&#xA;&lt;persistable path=&quot;/MINT64/01.Kernel32/Kernel32.bin&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;ImageMaker.c&quot; tooltip=&quot;MINT64/04.Utility/ImageMaker.c&quot;>&#xA;&lt;persistable path=&quot;/MINT64/04.Utility/ImageMaker.c&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.make.editor&quot; name=&quot;makefile&quot; tooltip=&quot;MINT64/01.Kernel32/makefile&quot;>&#xA;&lt;persistable path=&quot;/MINT64/01.Kernel32/makefile&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.ui.DefaultTextEditor&quot; name=&quot;elf_x86_64.x&quot; tooltip=&quot;MINT64/02.Kernel64/elf_x86_64.x&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/elf_x86_64.x&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;ModeSwitch.h&quot; tooltip=&quot;MINT64/01.Kernel32/Source/ModeSwitch.h&quot;>&#xA;&lt;persistable path=&quot;/MINT64/01.Kernel32/Source/ModeSwitch.h&quot;/>&#xA;&lt;/file>&#xA;&lt;/mruList>&#xA;&lt;/workbench>"/>
+  <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workbench>&#xA;&lt;mruList>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;Descriptor.c&quot; tooltip=&quot;MINT64/02.Kernel64/Source/Descriptor.c&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Source/Descriptor.c&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;AssemblyUtility.h&quot; tooltip=&quot;MINT64/02.Kernel64/Source/AssemblyUtility.h&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Source/AssemblyUtility.h&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.make.editor&quot; name=&quot;makefile&quot; tooltip=&quot;MINT64/makefile&quot;>&#xA;&lt;persistable path=&quot;/MINT64/makefile&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;Keyboard.c&quot; tooltip=&quot;MINT64/02.Kernel64/Source/Keyboard.c&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Source/Keyboard.c&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;Keyboard.h&quot; tooltip=&quot;MINT64/02.Kernel64/Source/Keyboard.h&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Source/Keyboard.h&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.asm.AsmEditor&quot; name=&quot;EntryPoint.s&quot; tooltip=&quot;MINT64/02.Kernel64/Source/EntryPoint.s&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Source/EntryPoint.s&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.asm.AsmEditor&quot; name=&quot;BootLoader.asm&quot; tooltip=&quot;MINT64/00.BootLoader/BootLoader.asm&quot;>&#xA;&lt;persistable path=&quot;/MINT64/00.BootLoader/BootLoader.asm&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.asm.AsmEditor&quot; name=&quot;EntryPoint.s&quot; tooltip=&quot;MINT64/01.Kernel32/Source/EntryPoint.s&quot;>&#xA;&lt;persistable path=&quot;/MINT64/01.Kernel32/Source/EntryPoint.s&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;Main.c&quot; tooltip=&quot;MINT64/01.Kernel32/Source/Main.c&quot;>&#xA;&lt;persistable path=&quot;/MINT64/01.Kernel32/Source/Main.c&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;Types.h&quot; tooltip=&quot;MINT64/02.Kernel64/Source/Types.h&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Source/Types.h&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.asm.AsmEditor&quot; name=&quot;ModeSwitch.asm&quot; tooltip=&quot;MINT64/01.Kernel32/Source/ModeSwitch.asm&quot;>&#xA;&lt;persistable path=&quot;/MINT64/01.Kernel32/Source/ModeSwitch.asm&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.asm.AsmEditor&quot; name=&quot;AssemblyUtility.asm&quot; tooltip=&quot;MINT64/02.Kernel64/Source/AssemblyUtility.asm&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Source/AssemblyUtility.asm&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.ui.DefaultTextEditor&quot; name=&quot;Dependency.dep&quot; tooltip=&quot;MINT64/02.Kernel64/Temp/Dependency.dep&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Temp/Dependency.dep&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.binaryEditor&quot; name=&quot;Main.o&quot; tooltip=&quot;MINT64/02.Kernel64/Temp/Main.o&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Temp/Main.o&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.make.editor&quot; name=&quot;makefile&quot; tooltip=&quot;MINT64/02.Kernel64/makefile&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/makefile&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;Main.c&quot; tooltip=&quot;MINT64/02.Kernel64/Source/Main.c&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/Source/Main.c&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.ui.DefaultTextEditor&quot; name=&quot;Kernel32.bin&quot; tooltip=&quot;MINT64/01.Kernel32/Kernel32.bin&quot;>&#xA;&lt;persistable path=&quot;/MINT64/01.Kernel32/Kernel32.bin&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;ImageMaker.c&quot; tooltip=&quot;MINT64/04.Utility/ImageMaker.c&quot;>&#xA;&lt;persistable path=&quot;/MINT64/04.Utility/ImageMaker.c&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.cdt.make.editor&quot; name=&quot;makefile&quot; tooltip=&quot;MINT64/01.Kernel32/makefile&quot;>&#xA;&lt;persistable path=&quot;/MINT64/01.Kernel32/makefile&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.ui.DefaultTextEditor&quot; name=&quot;elf_x86_64.x&quot; tooltip=&quot;MINT64/02.Kernel64/elf_x86_64.x&quot;>&#xA;&lt;persistable path=&quot;/MINT64/02.Kernel64/elf_x86_64.x&quot;/>&#xA;&lt;/file>&#xA;&lt;/mruList>&#xA;&lt;/workbench>"/>
   <tags>activeSchemeId:org.eclipse.ui.defaultAcceleratorConfiguration</tags>
   <tags>ModelMigrationProcessor.001</tags>
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_PjaSESPoEeqFJu9gI1iFDw" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_PjaSEiPoEeqFJu9gI1iFDw" label="%trimmedwindow.label.eclipseSDK" x="960" y="27" width="965" height="1045">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_PjaSESPoEeqFJu9gI1iFDw" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_PjaSEiPoEeqFJu9gI1iFDw" label="%trimmedwindow.label.eclipseSDK" x="961" y="7" width="965" height="1045">
     <persistedState key="coolBarVisible" value="true"/>
     <persistedState key="perspectiveBarVisible" value="true"/>
     <persistedState key="isRestored" value="true"/>
@@ -11,7 +11,6 @@
     <persistedState key="workingSets" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workingSets/>"/>
     <persistedState key="aggregateWorkingSetId" value="Aggregate for window 1576981015618"/>
     <tags>topLevel</tags>
-    <tags>shellMaximized</tags>
     <children xsi:type="basic:PartSashContainer" xmi:id="_PjaSEiPoEeqFJu9gI1iFDw" selectedElement="_PjaSEyPoEeqFJu9gI1iFDw" horizontal="true">
       <children xsi:type="advanced:PerspectiveStack" xmi:id="_PjaSEyPoEeqFJu9gI1iFDw" elementId="org.eclipse.ui.ide.perspectivestack" containerData="7500" selectedElement="_PjaSFCPoEeqFJu9gI1iFDw">
         <children xsi:type="advanced:Perspective" xmi:id="_PjaSFCPoEeqFJu9gI1iFDw" elementId="org.eclipse.cdt.ui.CPerspective" selectedElement="_PjaSFSPoEeqFJu9gI1iFDw" label="C/C++" iconURI="platform:/plugin/org.eclipse.cdt.ui/icons/view16/c_pers.gif">
@@ -71,9 +70,8 @@
           <tags>persp.actionSet:org.eclipse.cdt.make.ui.makeTargetActionSet</tags>
           <tags>persp.viewSC:org.eclipse.tm.terminal.view.ui.TerminalsView</tags>
           <tags>persp.showIn:org.eclipse.tm.terminal.view.ui.TerminalsView</tags>
-          <children xsi:type="basic:PartSashContainer" xmi:id="_PjaSFSPoEeqFJu9gI1iFDw" selectedElement="_PjaSFiPoEeqFJu9gI1iFDw" horizontal="true">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_PjaSFSPoEeqFJu9gI1iFDw" selectedElement="_PjaSHCPoEeqFJu9gI1iFDw" horizontal="true">
             <children xsi:type="basic:PartStack" xmi:id="_PjaSFiPoEeqFJu9gI1iFDw" elementId="topLeft" containerData="2083" selectedElement="_PjaSFyPoEeqFJu9gI1iFDw">
-              <tags>active</tags>
               <tags>noFocus</tags>
               <children xsi:type="advanced:Placeholder" xmi:id="_PjaSFyPoEeqFJu9gI1iFDw" elementId="org.eclipse.ui.navigator.ProjectExplorer" ref="_PjaTlSPoEeqFJu9gI1iFDw" closeable="true">
                 <tags>View</tags>
@@ -186,9 +184,31 @@
       <tags>categoryTag:Help</tags>
     </sharedElements>
     <sharedElements xsi:type="advanced:Area" xmi:id="_PjaThyPoEeqFJu9gI1iFDw" elementId="org.eclipse.ui.editorss" selectedElement="_PjaTiCPoEeqFJu9gI1iFDw">
-      <children xsi:type="basic:PartStack" xmi:id="_PjaTiCPoEeqFJu9gI1iFDw" elementId="org.eclipse.e4.primaryDataStack">
+      <children xsi:type="basic:PartStack" xmi:id="_PjaTiCPoEeqFJu9gI1iFDw" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_LQ_egEKQEeq9MKy81Zys0w">
         <tags>org.eclipse.e4.primaryDataStack</tags>
         <tags>EditorStack</tags>
+        <tags>active</tags>
+        <tags>noFocus</tags>
+        <children xsi:type="basic:Part" xmi:id="_iBXRQEKLEeqXfq3VXbDqAA" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="makefile" iconURI="platform:/plugin/org.eclipse.cdt.make.ui/icons/etool16/makefile.gif" closeable="true">
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.eclipse.cdt.make.editor&quot; name=&quot;makefile&quot; partName=&quot;makefile&quot; title=&quot;makefile&quot; tooltip=&quot;MINT64/makefile&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/MINT64/makefile&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1047&quot; selectionTopPixel=&quot;0&quot;/>&#xA;&lt;/editor>"/>
+          <tags>Editor</tags>
+          <tags>removeOnHide</tags>
+          <tags>org.eclipse.cdt.make.editor</tags>
+        </children>
+        <children xsi:type="basic:Part" xmi:id="_alpmQEKOEeqXfq3VXbDqAA" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="AssemblyUtility.h" iconURI="platform:/plugin/org.eclipse.cdt.ui/icons/obj16/c_file_obj.gif" closeable="true">
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;AssemblyUtility.h&quot; partName=&quot;AssemblyUtility.h&quot; title=&quot;AssemblyUtility.h&quot; tooltip=&quot;MINT64/02.Kernel64/Source/AssemblyUtility.h&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/MINT64/02.Kernel64/Source/AssemblyUtility.h&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;0&quot; selectionTopPixel=&quot;0&quot;/>&#xA;&lt;/editor>"/>
+          <tags>Editor</tags>
+          <tags>removeOnHide</tags>
+          <tags>org.eclipse.cdt.ui.editor.CEditor</tags>
+        </children>
+        <children xsi:type="basic:Part" xmi:id="_LQ_egEKQEeq9MKy81Zys0w" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="Descriptor.c" iconURI="platform:/plugin/org.eclipse.cdt.ui/icons/obj16/c_file_obj.gif" closeable="true">
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.eclipse.cdt.ui.editor.CEditor&quot; name=&quot;Descriptor.c&quot; partName=&quot;Descriptor.c&quot; title=&quot;Descriptor.c&quot; tooltip=&quot;MINT64/02.Kernel64/Source/Descriptor.c&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/MINT64/02.Kernel64/Source/Descriptor.c&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;587&quot; selectionTopPixel=&quot;0&quot;/>&#xA;&lt;/editor>"/>
+          <tags>Editor</tags>
+          <tags>removeOnHide</tags>
+          <tags>org.eclipse.cdt.ui.editor.CEditor</tags>
+          <tags>active</tags>
+          <tags>activeOnClose</tags>
+        </children>
       </children>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_PjaTlSPoEeqFJu9gI1iFDw" elementId="org.eclipse.ui.navigator.ProjectExplorer" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Project Explorer" iconURI="platform:/plugin/org.eclipse.ui.navigator.resources/icons/full/eview16/resource_persp.png" tooltip="" closeable="true">
@@ -197,8 +217,6 @@
       <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;view CommonNavigator.LINKING_ENABLED=&quot;0&quot; currentWorkingSetName=&quot;Aggregate for window 1576981015618&quot; org.eclipse.cdt.ui.cview.groupincludes=&quot;false&quot; org.eclipse.cdt.ui.cview.groupmacros=&quot;false&quot; org.eclipse.cdt.ui.editor.CUChildren=&quot;true&quot; org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets=&quot;0&quot;>&#xA;&lt;lastRecentlyUsedFilters/>&#xA;&lt;/view>"/>
       <tags>View</tags>
       <tags>categoryTag:General</tags>
-      <tags>active</tags>
-      <tags>activeOnClose</tags>
       <menus xmi:id="_PjaTliPoEeqFJu9gI1iFDw" elementId="org.eclipse.ui.navigator.ProjectExplorer">
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
@@ -327,7 +345,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_Pja5eiPoEeqFJu9gI1iFDw" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_oRHysD6nEeqMe6AZ8SsqTA" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_PjdXuCPoEeqFJu9gI1iFDw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_It86AEKQEeq9MKy81Zys0w" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_PjdXuCPoEeqFJu9gI1iFDw"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_Pja5jCPoEeqFJu9gI1iFDw" elementId="group.edit" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -358,7 +376,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_Pja58yPoEeqFJu9gI1iFDw" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_oROgYD6nEeqMe6AZ8SsqTA" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" enabled="false" type="Check" command="_PjdXZyPoEeqFJu9gI1iFDw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_It_WQEKQEeq9MKy81Zys0w" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_PjdXZyPoEeqFJu9gI1iFDw"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_Pja5_yPoEeqFJu9gI1iFDw" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -442,8 +460,10 @@
     <bindings xmi:id="_Pja6LyPoEeqFJu9gI1iFDw" keySequence="CTRL+PAGE_DOWN" command="_PjdV0CPoEeqFJu9gI1iFDw"/>
     <bindings xmi:id="_Pja6MCPoEeqFJu9gI1iFDw" keySequence="ALT+SHIFT+F3" command="_PjdXwSPoEeqFJu9gI1iFDw"/>
     <bindings xmi:id="_Pja6MSPoEeqFJu9gI1iFDw" keySequence="SHIFT+DEL" command="_PjdWDiPoEeqFJu9gI1iFDw"/>
-    <bindings xmi:id="_ns0y0T6nEeqMe6AZ8SsqTA" keySequence="CTRL+SPACE" command="_PjdXjCPoEeqFJu9gI1iFDw"/>
-    <bindings xmi:id="_ns5rUD6nEeqMe6AZ8SsqTA" keySequence="CTRL+SHIFT+SPACE" command="_PjdV5CPoEeqFJu9gI1iFDw"/>
+    <bindings xmi:id="_guG5oUKLEeqXfq3VXbDqAA" keySequence="ALT+/" command="_PjdXjCPoEeqFJu9gI1iFDw">
+      <tags>locale:ko</tags>
+      <tags>platform:gtk</tags>
+    </bindings>
   </bindingTables>
   <bindingTables xmi:id="_Pja6MyPoEeqFJu9gI1iFDw" elementId="org.eclipse.ui.textEditorScope" bindingContext="_Pja7vCPoEeqFJu9gI1iFDw">
     <bindings xmi:id="_Pja6NCPoEeqFJu9gI1iFDw" keySequence="CTRL+SHIFT+CR" command="_PjdXwCPoEeqFJu9gI1iFDw"/>
@@ -495,7 +515,10 @@
     <bindings xmi:id="_Pja6YyPoEeqFJu9gI1iFDw" keySequence="CTRL+SHIFT+NUMPAD_MULTIPLY" command="_PjdXXyPoEeqFJu9gI1iFDw"/>
     <bindings xmi:id="_Pja6ZCPoEeqFJu9gI1iFDw" keySequence="CTRL+SHIFT+NUMPAD_DIVIDE" command="_PjdW9CPoEeqFJu9gI1iFDw"/>
     <bindings xmi:id="_Pja6ZSPoEeqFJu9gI1iFDw" keySequence="SHIFT+CR" command="_PjdX9yPoEeqFJu9gI1iFDw"/>
-    <bindings xmi:id="_ntLYID6nEeqMe6AZ8SsqTA" keySequence="ALT+/" command="_PjdX_yPoEeqFJu9gI1iFDw"/>
+    <bindings xmi:id="_guFEcEKLEeqXfq3VXbDqAA" keySequence="ALT+CTRL+/" command="_PjdX_yPoEeqFJu9gI1iFDw">
+      <tags>locale:ko</tags>
+      <tags>platform:gtk</tags>
+    </bindings>
   </bindingTables>
   <bindingTables xmi:id="_Pja6ZiPoEeqFJu9gI1iFDw" elementId="org.eclipse.cdt.ui.cEditorScope" bindingContext="_Pja71CPoEeqFJu9gI1iFDw">
     <bindings xmi:id="_Pja6ZyPoEeqFJu9gI1iFDw" keySequence="ALT+CTRL+SHIFT+C" command="_PjdYXCPoEeqFJu9gI1iFDw"/>
@@ -656,6 +679,14 @@
     <bindings xmi:id="_Pja69CPoEeqFJu9gI1iFDw" keySequence="DEL" command="_PjdVeCPoEeqFJu9gI1iFDw"/>
     <bindings xmi:id="_Pja69iPoEeqFJu9gI1iFDw" keySequence="ALT+-" command="_PjdWyCPoEeqFJu9gI1iFDw"/>
     <bindings xmi:id="_Pja69yPoEeqFJu9gI1iFDw" keySequence="ALT+CR" command="_PjdXdiPoEeqFJu9gI1iFDw"/>
+    <bindings xmi:id="_guEdYUKLEeqXfq3VXbDqAA" keySequence="ALT+SHIFT+?" command="_PjdV5CPoEeqFJu9gI1iFDw">
+      <tags>locale:ko</tags>
+      <tags>platform:gtk</tags>
+    </bindings>
+    <bindings xmi:id="_guG5oEKLEeqXfq3VXbDqAA" keySequence="ALT+?" command="_PjdV5CPoEeqFJu9gI1iFDw">
+      <tags>locale:ko</tags>
+      <tags>platform:gtk</tags>
+    </bindings>
   </bindingTables>
   <bindingTables xmi:id="_Pja6-CPoEeqFJu9gI1iFDw" elementId="org.eclipse.wst.sse.ui.structuredTextEditorScope" bindingContext="_Pja7vSPoEeqFJu9gI1iFDw">
     <bindings xmi:id="_Pja6-SPoEeqFJu9gI1iFDw" keySequence="CTRL+SHIFT+P" command="_PjdW1CPoEeqFJu9gI1iFDw"/>
