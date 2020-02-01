@@ -64,7 +64,7 @@
 // size of Global Descriptor table
 #define GDT_TABLESIZE			( ( sizeof( GDTENTRY8 ) * GDT_MAXENTRY8COUNT ) \
 		+ ( sizeof( GDTENTRY16 ) * GDT_MAXENTRY16COUNT ) )
-#define TSS_SEGMENTSIZE			( sizeof( TSSSEMGNT ) )
+#define TSS_SEGMENTSIZE			( sizeof( TSSSEGMENT ) )
 
 /*
  * macros about Interrupt Descriptor Table
@@ -128,7 +128,7 @@ typedef struct kGDTEntry16Struct {
     WORD wLowerBaseAddress;
     BYTE bMiddleBaseAddress1;
     // 4 bits Type, 1 bit 0, 2 bites DPL, 1 bit P
-    BYTE bTYypeAndLowerFlag;
+    BYTE bTypeAndLowerFlag;
     // 4 bits Segment Limit, 1 bit AVL, 0, 0, G
     BYTE bUpperLimitAndUpperFlag;
     BYTE bMiddleBaseAddress2;

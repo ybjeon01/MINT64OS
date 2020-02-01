@@ -1,6 +1,0 @@
-// implement Task state segment and make new global descriptor
-// table again for IA-32e.
-
-#include "Descriptor.h"
-#include "Utility.h"
-
