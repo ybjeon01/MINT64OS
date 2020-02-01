@@ -16170,3 +16170,354 @@ make[1]: Leaving directory '/tmp/guest-g4xi1q/MINT64OS/eclipse-workspace/MINT64/
 
 ============== All Build Complete ==============
 
+15:36:17 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+nasm -o BootLoader.bin BootLoader.asm
+make[1]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+nasm -o Temp/EntryPoint.bin Source/EntryPoint.s
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+gcc -m32 -ffreestanding -c ../Source/Page.c
+nasm -f elf32 -o ModeSwitch.o ../Source/ModeSwitch.asm
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Descriptor.c ../Source/Utility.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+nasm -f elf64 -o EntryPoint.o ../Source/EntryPoint.s
+gcc -m64 -ffreestanding -c ../Source/Main.c
+gcc -m64 -ffreestanding -c ../Source/Descriptor.c
+In file included from ../Source/Descriptor.c:11:0:
+../Source/Descriptor.c: In function 'kInitializeGDTTableAndTSS':
+../Source/Descriptor.h:49:51: error: 'GD_FLAGS_UPPER_L' undeclared (first use in this function); did you mean 'GDT_FLAGS_UPPER_L'?
+../makefile:44: recipe for target 'Descriptor.o' failed
+ #define GDT_FLAGS_UPPER_CODE (GDT_FLAGS_UPPER_G | GD_FLAGS_UPPER_L)
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+                                                   ^
+makefile:22: recipe for target 'ExecuteInternalBuild' failed
+../Source/Descriptor.c:33:48: note: in expansion of macro 'GDT_FLAGS_UPPER_CODE'
+make[1]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+makefile:27: recipe for target 'Kernel64' failed
+     kSetGDTEntry8( &(pstEntry[1]), 0, 0xFFFFF, GDT_FLAGS_UPPER_CODE,
+                                                ^~~~~~~~~~~~~~~~~~~~
+../Source/Descriptor.h:49:51: note: each undeclared identifier is reported only once for each function it appears in
+ #define GDT_FLAGS_UPPER_CODE (GDT_FLAGS_UPPER_G | GD_FLAGS_UPPER_L)
+                                                   ^
+../Source/Descriptor.c:33:48: note: in expansion of macro 'GDT_FLAGS_UPPER_CODE'
+     kSetGDTEntry8( &(pstEntry[1]), 0, 0xFFFFF, GDT_FLAGS_UPPER_CODE,
+                                                ^~~~~~~~~~~~~~~~~~~~
+../Source/Descriptor.h:34:3: error: 'GDT_FLAGS_LOWER_DPL0' undeclared (first use in this function); did you mean 'GDT_FLAGS_LOWER_P'?
+   GDT_FLAGS_LOWER_DPL0 | GDT_FLAGS_LOWER_P)
+   ^
+../Source/Descriptor.c:34:7: note: in expansion of macro 'GDT_FLAGS_LOWER_KERNELCODE'
+       GDT_FLAGS_LOWER_KERNELCODE, GDT_TYPE_CODE);
+       ^~~~~~~~~~~~~~~~~~~~~~~~~~
+make[2]: *** [Descriptor.o] Error 1
+make[1]: *** [ExecuteInternalBuild] Error 2
+make: *** [Kernel64] Error 2
+"make all" terminated with exit code 2. Build might be incomplete.
+15:37:39 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Descriptor.c ../Source/Utility.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Descriptor.c
+In file included from ../Source/Descriptor.c:11:0:
+../Source/Descriptor.c: In function 'kInitializeGDTTableAndTSS':
+../Source/Descriptor.h:49:51: error: 'GD_FLAGS_UPPER_L' undeclared (first use in this function); did you mean 'GDT_FLAGS_UPPER_L'?
+ #define GDT_FLAGS_UPPER_CODE (GDT_FLAGS_UPPER_G | GD_FLAGS_UPPER_L)
+../makefile:44: recipe for target 'Descriptor.o' failed
+                                                   ^
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+../Source/Descriptor.c:33:48: note: in expansion of macro 'GDT_FLAGS_UPPER_CODE'
+makefile:22: recipe for target 'ExecuteInternalBuild' failed
+     kSetGDTEntry8( &(pstEntry[1]), 0, 0xFFFFF, GDT_FLAGS_UPPER_CODE,
+make[1]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+                                                ^~~~~~~~~~~~~~~~~~~~
+../Source/Descriptor.h:49:51: note: each undeclared identifier is reported only once for each function it appears in
+ #define GDT_FLAGS_UPPER_CODE (GDT_FLAGS_UPPER_G | GD_FLAGS_UPPER_L)
+                                                   ^
+../Source/Descriptor.c:33:48: note: in expansion of macro 'GDT_FLAGS_UPPER_CODE'
+     kSetGDTEntry8( &(pstEntry[1]), 0, 0xFFFFF, GDT_FLAGS_UPPER_CODE,
+makefile:27: recipe for target 'Kernel64' failed
+                                                ^~~~~~~~~~~~~~~~~~~~
+make[2]: *** [Descriptor.o] Error 1
+make[1]: *** [ExecuteInternalBuild] Error 2
+make: *** [Kernel64] Error 2
+"make all" terminated with exit code 2. Build might be incomplete.
+15:37:55 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Descriptor.c ../Source/Utility.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Descriptor.c
+In file included from ../Source/Descriptor.c:11:0:
+../Source/Descriptor.c: In function 'kInitializeGDTTableAndTSS':
+../Source/Descriptor.h:50:51: error: 'GD_FLAGS_UPPER_L' undeclared (first use in this function); did you mean 'GDT_FLAGS_UPPER_L'?
+ #define GDT_FLAGS_UPPER_DATA (GDT_FLAGS_UPPER_G | GD_FLAGS_UPPER_L)
+                                                   ^
+../Source/Descriptor.c:35:49: note: in expansion of macro 'GDT_FLAGS_UPPER_DATA'
+     kSetGDTEntry8 ( &(pstEntry[1]), 0, 0xFFFFF, GDT_FLAGS_UPPER_DATA,
+                                                 ^~~~~~~~~~~~~~~~~~~~
+../Source/Descriptor.h:50:51: note: each undeclared identifier is reported only once for each function it appears in
+ #define GDT_FLAGS_UPPER_DATA (GDT_FLAGS_UPPER_G | GD_FLAGS_UPPER_L)
+                                                   ^
+../Source/Descriptor.c:35:49: note: in expansion of macro 'GDT_FLAGS_UPPER_DATA'
+../makefile:44: recipe for target 'Descriptor.o' failed
+     kSetGDTEntry8 ( &(pstEntry[1]), 0, 0xFFFFF, GDT_FLAGS_UPPER_DATA,
+                                                 ^~~~~~~~~~~~~~~~~~~~
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+make[2]: *** [Descriptor.o] Error 1
+make[1]: *** [ExecuteInternalBuild] Error 2
+make: *** [Kernel64] Error 2
+makefile:22: recipe for target 'ExecuteInternalBuild' failed
+make[1]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+makefile:27: recipe for target 'Kernel64' failed
+"make all" terminated with exit code 2. Build might be incomplete.
+15:37:58 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Descriptor.c ../Source/Utility.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Descriptor.c
+gcc -m64 -ffreestanding -c ../Source/Utility.c
+gcc -m64 -ffreestanding -c ../Source/Keyboard.c
+nasm -f elf64 -o AssemblyUtility.o ../Source/AssemblyUtility.asm
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Descriptor.o Utility.o Keyboard.o AssemblyUtility.o
+Descriptor.o: In function `kInitializeGDTTableAndTSS':
+Descriptor.c:(.text+0x5c): undefined reference to `kSetGDTEntry8'
+../makefile:53: recipe for target 'Kernel64.elf' failed
+Descriptor.c:(.text+0x87): undefined reference to `kSetGDTEntry8'
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+Descriptor.c:(.text+0xb2): undefined reference to `kSetGDTEntry8'
+makefile:22: recipe for target 'ExecuteInternalBuild' failed
+make[1]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+makefile:27: recipe for target 'Kernel64' failed
+make[2]: *** [Kernel64.elf] Error 1
+make[1]: *** [ExecuteInternalBuild] Error 2
+make: *** [Kernel64] Error 2
+"make all" terminated with exit code 2. Build might be incomplete.
+15:38:04 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Descriptor.c ../Source/Utility.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Descriptor.o Utility.o Keyboard.o AssemblyUtility.o
+Descriptor.o: In function `kInitializeGDTTableAndTSS':
+Descriptor.c:(.text+0x5c): undefined reference to `kSetGDTEntry8'
+Descriptor.c:(.text+0x87): undefined reference to `kSetGDTEntry8'
+Descriptor.c:(.text+0xb2): undefined reference to `kSetGDTEntry8'
+../makefile:53: recipe for target 'Kernel64.elf' failed
+make[2]: *** [Kernel64.elf] Error 1
+make[2]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+make[1]: *** [ExecuteInternalBuild] Error 2
+makefile:22: recipe for target 'ExecuteInternalBuild' failed
+make: *** [Kernel64] Error 2
+make[1]: Leaving directory '/tmp/guest-yo88ek/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+makefile:27: recipe for target 'Kernel64' failed
+"make all" terminated with exit code 2. Build might be incomplete.

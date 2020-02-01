@@ -5,4 +5,9 @@
 BYTE kInPortByte(WORD wPort);
 void kOutPortByte(WORD wPort, BYTE bData);
 
+// load GDTR, TSR, ISTR
+void kLoadGDTR(QWORD qwGDTRAddress);
+void kLoadR(WORD wTSSSegmentOffset);
+void kLoadIDTR(QWORD qwIDTRAddress);
+
 #endif /* __ASSEMBLYUTILITY_H__ */

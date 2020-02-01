@@ -1,0 +1,10 @@
+#include "Utility.h"
+
+// fill destination with bData as many as iSize
+void kMemSet(void *pvDestination, BYTE bData, int iSize) {
+	int i;
+
+	for (i = 0; i < iSize; i++) {
+		( (char *) pvDestination )
+	}
+}

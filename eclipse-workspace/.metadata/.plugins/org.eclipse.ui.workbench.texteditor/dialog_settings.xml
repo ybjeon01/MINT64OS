@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value=""/>
+		<item key="selection" value="GDT_FLAGS_LOWER_KERNELCODE"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="GDT_FLAGS_LOWER_KERNELCODE"/>
+			<item value="GDTR"/>
+			<item value="GDTENTRY8"/>
 			<item value="debug`"/>
 			<item value="debug"/>
 			<item value="bShiftDown"/>
@@ -20,9 +23,6 @@
 			<item value="kIsOutputBufferFull"/>
 			<item value="update"/>
 			<item value="koutport"/>
-			<item value="convert"/>
-			<item value="CSOURCEFILES"/>
-			<item value="ASSERMBLYSOURCEFILES"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
@@ -31,8 +31,8 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item key="DIALOG_X_ORIGIN" value="0"/>
 		<item key="DIALOG_Y_ORIGIN" value="587"/>
-		<item key="DIALOG_WIDTH" value="345"/>
-		<item key="DIALOG_HEIGHT" value="458"/>
-		<item key="DIALOG_FONT_NAME" value="1|Cantarell|11.0|0|GTK|1|"/>
+		<item key="DIALOG_WIDTH" value="326"/>
+		<item key="DIALOG_HEIGHT" value="419"/>
+		<item key="DIALOG_FONT_NAME" value="1|Noto Sans CJK KR|9.0|0|GTK|1|"/>
 	</section>
 </section>

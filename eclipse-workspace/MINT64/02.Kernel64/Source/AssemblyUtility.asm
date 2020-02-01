@@ -4,7 +4,7 @@ SECTION .text
 
 ; read a byte from port
 ; or write a byte to port
-global kInPortByte, kOutPortByte
+global kInPortByte, kOutPortByte, kLoadGDTR, kLoadTR, kLoadIDTR
 
 ; read one byte from port
 ; param: port address
@@ -30,4 +30,22 @@ kOutPortByte:
 
     pop rax
     pop rdx
+    ret
+
+; set GDT address to GDTR
+; param: GDT start address
+kLoadGDTR:
+    lgdt [rdi]
+    ret
+
+; set TSS segment descirptor offset to TR register
+; param: TSS segment descriptor offset
+kLoadTR:
+    ltr di;
+    ret
+
+; set IDT table start address to IDTR register
+; param: IDT start address
+kLoadIDT:
+    lidt [rdi]
     ret

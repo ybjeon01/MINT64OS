@@ -1,0 +1,20 @@
+#include "Utility.h"
+
+// fill destination with bData as many as iSize
+void kMemSet(void *pvDestination, BYTE bData, int iSize) {
+	int i;
+
+	for (i = 0; i < iSize; i++) {
+		( (char *) pvDestination )[i] = bData;
+	}
+}
+
+// copy data in pvSource to pvDestination as many as iSize
+int kMemCpy(void *pvDestination, const void *pvSource, int iSize) {
+    int i;
+
+    for (i=0; i < iSize; i++) {
+    	( (char *) pvDestination)[i] = ( (char *) pvSource)[i];
+    }
+    return iSize;
+}
