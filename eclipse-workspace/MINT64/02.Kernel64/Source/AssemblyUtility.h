@@ -10,4 +10,10 @@ void kLoadGDTR(QWORD qwGDTRAddress);
 void kLoadTR(WORD wTSSSegmentOffset);
 void kLoadIDTR(QWORD qwIDTRAddress);
 
+// activate or deactivate interrupt
+// read from RFLAGS register
+void kEnableInterrupt(void);
+void kDisableInterrupt(void);
+QWORD kReadRFLAGS(void);
+
 #endif /* __ASSEMBLYUTILITY_H__ */

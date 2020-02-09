@@ -6,6 +6,9 @@ SECTION .text
 ; or write a byte to port
 global kInPortByte, kOutPortByte, kLoadGDTR, kLoadTR, kLoadIDTR
 
+; enable or disable inetrrupt or readRFLAGS
+global kEnableInterrupt, kDisableInterrupt, kReadFLAGS
+
 ; read one byte from port
 ; param: port address
 kInPortByte:
@@ -48,4 +51,23 @@ kLoadTR:
 ; param: IDT start address
 kLoadIDTR:
     lidt [rdi]
+    ret
+
+; activate inetrrupt
+; no params
+kEnableInterrupt:
+    sti
+    ret
+
+; deactivate interrupt
+; no params
+kDisableInterrupt:
+    cli
+    ret
+
+; read RFLAGS
+; no params
+kReadRFLAGS:
+    pushfq				; push RFLAGS to stack
+    pop rax
     ret
