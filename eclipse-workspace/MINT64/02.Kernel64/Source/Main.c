@@ -2,6 +2,7 @@
 #include "Keyboard.h"
 #include "Descriptor.h"
 #include "AssemblyUtility.h"
+#include "PIC.h"
 
 void kPrintString(int iX, int iY, const char *pcString);
 void kPrintHex(int iX, int iY, DWORD value);
@@ -48,6 +49,14 @@ void Main(void) {
     	while (1);
     }
 
+    // activate PIC controller so that you can handle interrupt from other hardwares
+    kPrintString(0, 16, "PIC Controller And Interrupt Initialize.....[     ]");
+    kInitializePIC();
+    // Unmask all interrupts. In other words, activate all interrupts
+    kMaskPICInterrupt(0);
+    kEnableInterrupt();
+    kPrintString(45, 16, "Pass");
+
    // read keyboard and write to monitor
     while (TRUE) {
 
@@ -64,7 +73,7 @@ void Main(void) {
     		// special key
             if (kConvertScanCodeToASCIICode(bTemp, &(vcTemp[0]), &bFlags)) {
             	if (bFlags & KEY_FLAGS_DOWN) {
-					kPrintString(i++, 16, vcTemp);
+					kPrintString(i++, 17, vcTemp);
 
 					if (vcTemp[0] == '0') {
 						bTemp = bTemp / 0;
