@@ -1,0 +1,15 @@
+#include "InterruptHandler.h"
+#include "PIC.h"
+
+// common exception handler
+void kCommonExceptionHandler(int iVectorNumber, QWORD qwErrorCode) {
+    char vcBuffer[3] = {0, };
+
+    // interrupt number as ASCII two-digit number
+    vcBuffer[0] = '0' + iVectorNumber / 10;
+    vcBuffer[1] = '0' + iVectorNumber % 10;
+
+    kPrintString(0, 0, "==================================================");
+    kPrintString(0, 1, "               Exception Occur~!!!!               ");
+    kPrintString(0, 2, "                    Vector:                       ");
+}

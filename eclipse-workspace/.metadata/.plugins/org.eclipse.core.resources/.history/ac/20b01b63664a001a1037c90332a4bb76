@@ -1,0 +1,197 @@
+; ISR file defines interrupt handlers that is registered to IDT table
+
+[BITS 64]
+
+SECTION .text
+
+; it is like #include <header>
+extern kCommandExceptionHandler, kCommandInterruptHandler, kKeyboardHandler
+
+; ISR for processing exceptions
+global kISRDivideError, kISRDebug, kISRNMI, kISRBreakPoint, kISROverflow
+global kISRBoundRangeExceeded, kISRInvalidOpcode, kISRDeviceNotAvailable
+global kISRDoubleFault
+global kISRCoprocessorSegmentOverrun, kISRInvalidTSS, kISRSegmentNotPresent
+global kISRStackSegmentFault, kISRGeneralProtection, kISRPageFault, KISR15
+global kISRFPUError, KISRAlignmentCheck, kISRMachineCheck, kISRSIMDerror
+global kISRETCException
+
+; ISR for processing interrupt
+global kISRTimer, kISRkeyboard, kISRSlavePIC, kISRSerial2, kISRSerial1, kISRParallel2
+global kISRFloppy, kISRParallel1, kISRRTC, kISRReserved, kISRNotUsed1, kISRNotUsed2
+global kISRMouse, kISRCoprocessor, kISRHDD1, kISRHDD2, kISRETCInterrupt
+
+; macro that saves context and changes selector
+%macro KSAVECONTEXT 0			; KSAVECONTEXT does not accept parameter
+    ; push registers and segments to stack
+    push rbp
+    mov rbp, rsp
+    push rax
+    push rbx
+    push rcx
+    push rdx
+    push rdi
+    push rsi
+    push r8
+    push r9
+    push r10
+    push r11
+    push r12
+    push r13
+    push r14
+    push r15
+
+    ; cannot directly push ds and es to stack
+    mov ax, ds
+    push rax
+    move ax, es
+    push rax
+
+    push fs
+    push gs
+
+    ; change segment selector
+    mov ax, 0x10			; 0x10: kernel data segmenet descriptor offset
+    mov ds, ax
+    mov es, ax
+    mov gs, ax
+    mov fs, ax
+%endmacro
+
+; macro that restores context
+%macro KLOADCONTEXT 0			; KLOADCONTEXT does not accept parameter
+    ; restore all registers and selectors that was pushed to stack
+    pop gs
+    pop fs
+    pop rax
+    mov es, ax
+    pop rax
+    pop ds, ax
+    pop r15
+    pop r14
+    pop r13
+    pop r12
+    pop r11
+    pop r10
+    pop r9
+    pop r8
+    pop rsi
+    pop rdi
+    pop rdx
+    pop rcx
+    pop rbx
+    pop rax
+    pop rbp
+ %endmacro
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;	Exception Handlers
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; #0, Divide Error ISR
+kISRDivideError:
+    KSAVECONTEXT    ; save context and change selector to kernel data descriptor
+    ; exception number as first parameter
+    mov rdi, 0
+    call kCommonExceptionHandler
+    KLOADCONTEXT    ; restore context
+    iretq           ; complete interrupt processing and return to previous running code
+
+; #1, Debug ISR
+kISRDebug:
+    KSAVECONTEXT    ; save context and change selector to kernel data descriptor
+    ; exception number as first parameter
+    mov rdi, 1
+    call kCommonExceptionHandler
+    KLOADCONTEXT    ; restore context
+    iretq           ; complete interrupt processing and return to previous running code
+
+; #2, NMI ISR
+kISRNMI:
+    KSAVECONTEXT    ; save context and change selector to kernel data descriptor
+    ; exception number as first parameter
+    mov rdi, 2
+    call kCommonExceptionHandler
+    KLOADCONTEXT    ; restore context
+    iretq           ; complete interrupt processing and return to previous running code
+
+; #3, BreakPoint ISR
+kISRBreakPoint:
+    KSAVECONTEXT    ; save context and change selector to kernel data descriptor
+    ; exception number as first parameter
+    mov rdi, 4
+    call kCommonExceptionHandler
+    KLOADCONTEXT    ; restore context
+    iretq           ; complete interrupt processing and return to previous running code
+
+; #4, Overflow ISR
+kISROverflow:
+    KSAVECONTEXT    ; save context and change selector to kernel data descriptor
+    ; exception number as first parameter
+    mov rdi, 4
+    call kCommonExceptionHandler
+    KLOADCONTEXT    ; restore context
+    iretq           ; complete interrupt processing and return to previous running code
+
+; #5, Bound Range Exceeded ISR
+kISRBoundRangeExceeded:
+    KSAVECONTEXT    ; save context and change selector to kernel data descriptor
+    ; exception number as first parameter
+    mov rdi, 5
+    call kCommonExceptionHandler
+    KLOADCONTEXT    ; restore context
+    iretq           ; complete interrupt processing and return to previous running code
+
+; #6, Invalid Opcode ISR
+kISRInvalidOpcode:
+    KSAVECONTEXT    ; save context and change selector to kernel data descriptor
+    ; exception number as first parameter
+    mov rdi, 6
+    call kCommonExceptionHandler
+    KLOADCONTEXT    ; restore context
+    iretq           ; complete interrupt processing and return to previous running code
+
+; #7, Device not Available ISR
+kISRDeviceNotAvailable:
+    KSAVECONTEXT    ; save context and change selector to kernel data descriptor
+    ; exception number as first parameter
+    mov rdi, 7
+    call kCommonExceptionHandler
+    KLOADCONTEXT    ; restore context
+    iretq           ; complete interrupt processing and return to previous running code
+
+; #8, Double Fault ISR
+kISRRDoubleFault:
+    KSAVECONTEXT    ; save context and change selector to kernel data descriptor
+    ; exception number as first parameter
+    ; error code as second parameter
+    mov rdi, 8
+    mov rsi, qword [rbp + 8]
+    call kCommonExceptionHandler
+    KLOADCONTEXT    ; restore context
+    add rsp, 8      ; remove error code from stack
+    iretq           ; complete interrupt processing and return to previous running code
+
+; #9, Coprocessor Segment Overrun ISR
+kISRCoprocessorSegmentOverrun:
+    KSAVECONTEXT    ; save context and change selector to kernel data descriptor
+    ; exception number as first parameter
+    mov rdi, 9
+    call kCommonExceptionHandler
+    KLOADCONTEXT    ; restore context
+    iretq           ; complete interrupt processing and return to previous running code
+
+; #10, Invalid TSS ISR
+kISRInvalidTSS:
+    KSAVECONTEXT    ; save context and change selector to kernel data descriptor
+    ; exception number as first parameter
+    ; error code as second parameter
+    mov rdi, 10
+    mov rsi, qword [rbp + 8]
+    call kCommonExceptionHandler
+    KLOADCONTEXT    ; restore context
+    add rsp, 8      ; remove error code from stack
+    iretq           ; complete interrupt processing and return to previous running code
+
+
+
