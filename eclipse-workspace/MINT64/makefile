@@ -64,7 +64,7 @@ clean:
 	rm -f Disk.img
 	
 run:
-	/usr/libexec/qemu-kvm -L . -m 64 -fda Disk.img -localtime -M pc &
-	remote-viewer vnc://127.0.0.1:5900
-	pkill -9 qemu-kvm
-	#qemu-system-x86_64 -L . -m 64 -fda Disk.img -localtime -M pc
+	#/usr/libexec/qemu-kvm -L . -m 64 -fda Disk.img -localtime -M pc &
+	#remote-viewer vnc://127.0.0.1:5900
+	#pkill -9 qemu-kvm
+	qemu-system-x86_64 -L . -m 64 -fda Disk.img -localtime -M pc

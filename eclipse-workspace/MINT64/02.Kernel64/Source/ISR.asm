@@ -5,19 +5,19 @@
 SECTION .text
 
 ; it is like #include <header>
-extern kCommandExceptionHandler, kCommandInterruptHandler, kKeyboardHandler
+extern kCommonExceptionHandler, kCommonInterruptHandler, kKeyboardHandler
 
 ; ISR for processing exceptions
 global kISRDivideError, kISRDebug, kISRNMI, kISRBreakPoint, kISROverflow
 global kISRBoundRangeExceeded, kISRInvalidOpcode, kISRDeviceNotAvailable
 global kISRDoubleFault
 global kISRCoprocessorSegmentOverrun, kISRInvalidTSS, kISRSegmentNotPresent
-global kISRStackSegmentFault, kISRGeneralProtection, kISRPageFault, KISR15
-global kISRFPUError, KISRAlignmentCheck, kISRMachineCheck, kISRSIMDerror
+global kISRStackSegmentFault, kISRGeneralProtection, kISRPageFault, kISR15
+global kISRFPUError, kISRAlignmentCheck, kISRMachineCheck, kISRSIMDError
 global kISRETCException
 
 ; ISR for processing interrupt
-global kISRTimer, kISRkeyboard, kISRSlavePIC, kISRSerial2, kISRSerial1, kISRParallel2
+global kISRTimer, kISRKeyboard, kISRSlavePIC, kISRSerial2, kISRSerial1, kISRParallel2
 global kISRFloppy, kISRParallel1, kISRRTC, kISRReserved, kISRNotUsed1, kISRNotUsed2
 global kISRMouse, kISRCoprocessor, kISRHDD1, kISRHDD2, kISRETCInterrupt
 
@@ -44,7 +44,7 @@ global kISRMouse, kISRCoprocessor, kISRHDD1, kISRHDD2, kISRETCInterrupt
     ; cannot directly push ds and es to stack
     mov ax, ds
     push rax
-    move ax, es
+    mov ax, es
     push rax
 
     push fs
@@ -66,7 +66,7 @@ global kISRMouse, kISRCoprocessor, kISRHDD1, kISRHDD2, kISRETCInterrupt
     pop rax
     mov es, ax
     pop rax
-    pop ds, ax
+    mov ds, ax
     pop r15
     pop r14
     pop r13
@@ -161,7 +161,7 @@ kISRDeviceNotAvailable:
     iretq           ; complete interrupt processing and return to previous running code
 
 ; #8, Double Fault ISR
-kISRRDoubleFault:
+kISRDoubleFault:
     KSAVECONTEXT    ; save context and change selector to kernel data descriptor
     ; exception number as first parameter
     ; error code as second parameter
@@ -218,6 +218,7 @@ kISRStackSegmentFault:
     iretq           ; complete interrupt processing and return to previous running code
 
 ; #13 General Protection ISR
+kISRGeneralProtection:
     KSAVECONTEXT    ; save context and change selector to kernel data descriptor
     ; exception number as first parameter
     ; error code as second parameter
@@ -283,6 +284,7 @@ kISRMachineCheck:
     iretq           ; complete interrupt processing and return to previous running code
 
 ; #19, SIMD Floating Point Exception ISR
+kISRSIMDError:
     KSAVECONTEXT    ; save context and change selector to kernel data descriptor
     ; exception number as first parameter
     ; error code as second parameter
@@ -292,6 +294,7 @@ kISRMachineCheck:
     iretq           ; complete interrupt processing and return to previous running code
 
 ; #20 ~ #31, Reserved ISR
+kISRETCException:
     KSAVECONTEXT    ; save context and change selector to kernel data descriptor
     ; exception number as first parameter
     ; error code as second parameter
@@ -321,7 +324,7 @@ kISRKeyboard:
     ; exception number as first parameter
     ; error code as second parameter
     mov rdi, 33
-    call kCommonKeyboardHandler
+    call kKeyboardHandler
     KLOADCONTEXT    ; restore context
     iretq           ; complete interrupt processing and return to previous running code
 
@@ -436,6 +439,7 @@ kISRMouse:
     iretq           ; complete interrupt processing and return to previous running code
 
 ; #45 coprocessor ISR
+kISRCoprocessor:
     KSAVECONTEXT    ; save context and change selector to kernel data descriptor
     ; exception number as first parameter
     ; error code as second parameter

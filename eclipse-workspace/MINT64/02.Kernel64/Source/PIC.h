@@ -17,3 +17,5 @@
 void kInitializePIC(void);
 void kMaskPICInterrupt(WORD wIRQBitmask);
 void kSendEOIToPIC(int iIRQNumber);
+
+#endif /* __PIC_H__ */
