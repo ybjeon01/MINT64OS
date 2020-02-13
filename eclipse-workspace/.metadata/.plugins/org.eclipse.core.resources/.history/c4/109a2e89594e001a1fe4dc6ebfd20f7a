@@ -1,0 +1,5 @@
+#include "Queue.h"
+
+// initialize Queue
+void kInializeQueue(QUEUE *pstQueue, void *pvQueueBuffer, int iMaxDataCount,
+		int iDataSize);

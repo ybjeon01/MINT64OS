@@ -1,0 +1,17 @@
+#ifndef __QUEUE_H__
+#define __QUEUE_H__
+
+#include "Types.h"
+
+#pragma pack(push ,1)
+
+// general queue that can insert any data type item
+typedef struct kQqueueManagerStruct {
+	// size of item
+	// max number of item
+	int iDataSize;
+	int iMaxDataCount;
+
+	// index for circular queue
+	void *pvQueueArray
+} QUEUE;
