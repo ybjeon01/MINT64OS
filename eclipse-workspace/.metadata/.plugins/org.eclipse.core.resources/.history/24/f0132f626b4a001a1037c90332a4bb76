@@ -1,7 +1,0 @@
-#include "InterruptHandler.h"
-#include "PIC.h"
-
-// common exception handler
-void kCommonExceptionHandler(int iVectorNumber, QWORD qwErrorCode) {
-
-}

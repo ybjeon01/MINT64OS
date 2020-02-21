@@ -1,9 +1,0 @@
-#include "Queue.h"
-
-// initialize Queue
-void kInitializeQueue(QUEUE *pstQueue, void *pvQueueBuffer, int iMaxDataCount,
-		int iDataSize) {
-	pstQueue->iMaxDataCount = iMaxDataCount;
-	pstQueue->iDataSize = iDataSize;
-	pstQueue->pvQueueArray = pvQueueBuffer
-}

@@ -1,9 +1,0 @@
-#include "InterruptHandler.h"
-#include "PIC.h"
-
-// common exception handler
-void kCommonExceptionHandler(int iVectorNumber, QWORD qwErrorCode) {
-    char vcBuffer[3] = {0, };
-
-    // interrupt number as two-digit number
-}

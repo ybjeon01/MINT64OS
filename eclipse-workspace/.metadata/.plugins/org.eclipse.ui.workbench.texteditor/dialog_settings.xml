@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="IDT_FLAGS_KERNEL, IDT_TYPE_INTERRUPT"/>
+		<item key="selection" value="pbFlags"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="pbFlags"/>
+			<item value="kSetInterrupt"/>
+			<item value="kInitializeKeyboard"/>
+			<item value="for (j = 0; j &lt; 100; j++) {"/>
+			<item value="sendCommandToKeyboard"/>
+			<item value="0xFFFF"/>
+			<item value="j &lt; 100"/>
+			<item value="j&lt; 100"/>
+			<item value="kWaitForACKAndP"/>
 			<item value="IDT_FLAGS_IST1, IDT_TYPE_INTERRUPT"/>
 			<item value="IDTR_STARTADDRESS"/>
 			<item value="IDTENTRY"/>
 			<item value="GDT_FLAGS_LOWER_KERNELCODE"/>
 			<item value="GDTR"/>
 			<item value="GDTENTRY8"/>
-			<item value="debug`"/>
-			<item value="debug"/>
-			<item value="bShiftDown"/>
-			<item value="kShouldUseCombinedCode"/>
-			<item value="bUseCombinedKey"/>
-			<item value="b800"/>
-			<item value="pbASCIICode"/>
-			<item value="kConvertScanCodeToASCIICode"/>
-			<item value="kGetKeyboardScanCode"/>
 		</list>
 		<list key="replacehistory">
 			<item value="IDT_FLAGS_KERNEL, IDT_TYPE_INTERRUPT"/>
@@ -32,10 +32,14 @@
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="1422"/>
-		<item key="DIALOG_Y_ORIGIN" value="482"/>
+		<item key="DIALOG_X_ORIGIN" value="0"/>
+		<item key="DIALOG_Y_ORIGIN" value="92"/>
 		<item key="DIALOG_WIDTH" value="326"/>
 		<item key="DIALOG_HEIGHT" value="419"/>
 		<item key="DIALOG_FONT_NAME" value="1|Noto Sans CJK KR|9.0|0|GTK|1|"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="223"/>
+		<item key="DIALOG_Y_ORIGIN" value="362"/>
 	</section>
 </section>
