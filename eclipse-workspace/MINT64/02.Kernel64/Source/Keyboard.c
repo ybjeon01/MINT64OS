@@ -1,6 +1,7 @@
 #include "Types.h"
 #include "AssemblyUtility.h"
 #include "Keyboard.h"
+#include "Queue.h"
 
 BOOL sendCommandToKeyboard(BYTE command);
 
@@ -30,12 +31,58 @@ BOOL kIsInputBufferFull(void) {
 	return FALSE;
 }
 
+// wait until keyboard output buffer is full with ACk code
+// if output buffer is taken with other scan code, this function
+// push the scan code to queue and keeps waiting for ACK code being
+// ready in output buffer
+BOOL kWaitForACKAndPutOtherScanCode(void) {
+    int i, j;
+    BYTE bData;
+    BOOL bResult = FALSE;
+
+    // wait until ACK (acknowledge) comes back from keyboard
+	// because keyboard always reply to command.
+	// just in case keyboard output buffer (0x60) already has
+	// data, we accept up to 100 data from output buffer so
+	// we can check if keyboard replied to our command
+	for (j = 0; j < 100; j++) {
+        // Keyboard is not as fast as CPU. It means that after output buffer
+        // flushes, it would take little more time until output buffer is
+        // ready, so we loop as many as 0xFFFF
+		for (i = 0; i < 0xFFFF; i++) {
+           // can read data from output buffer
+			if ( kIsOutputBufferFull() ) {
+                break;
+            }
+		}
+
+		bData = kInPortByte( 0x60 );
+		// if data is ACK
+		if ( bData == 0xFA ) {
+			bResult = TRUE;
+			break;
+		}
+		// if data is not ACK, convert scan code to ASCII code and put the
+		// ASCII code to keyboard queue
+		else {
+            kConvertScanCodeAndPutQueue( bData );
+		}
+	}
+	return bResult;
+}
+
+
 
 // notify keyboard controller that user is going to use
 // keyboard and also send command to keyboard to activate
 // keyboard
 BOOL kActivateKeyboard(void) {
     int i, j;
+    BOOL bPreviousInterrupt;
+    BOOL bResult;
+
+    // unable to interrupt while activating keyboard
+    bPreviousInterrupt = kSetInterruptFlag(FALSE);
 
     // notify keyboard controller that user is going to
     // use keyboard device by sending 0xAE command to
@@ -45,7 +92,12 @@ BOOL kActivateKeyboard(void) {
     kOutPortByte(0x64, 0xAE);
 
     // keyboard activation command to keyboard
-    return sendCommandToKeyboard(0xF4);
+    bResult = sendCommandToKeyboard(0xF4);
+
+    // restore to previous interrupt state
+    kSetInterruptFlag( bPreviousInterrupt);
+
+    return bResult;
 
 }
 
@@ -62,20 +114,35 @@ BYTE kGetKeyboardScanCode(void) {
 BOOL kChangeKeyboardLED(BOOL bCapsLockOn, BOOL bNumLockOn,
 		BOOL bScrollLockOn) {
 
-    BOOL command;
-    if (sendCommandToKeyboard(0xED) == FALSE) {
-        return FALSE;
+	int i, j;
+	BOOL bPreviousInterrupt;
+	BOOL bResult;
+	BYTE bData;
+	BOOL command;
+	// disable interrupt
+	bPreviousInterrupt = kSetInterruptFlag(FALSE);
+
+
+    bResult = sendCommandToKeyboard(0xED);
+
+    if (bResult == FALSE) {
+    	kSetInterruptFlag(bPreviousInterrupt);
+    	return FALSE;
     }
 
     command = (bCapsLockOn << 2 | bNumLockOn << 1 | bScrollLockOn);
-    return sendCommandToKeyboard(command);
+    bResult = sendCommandToKeyboard(command);
+	kSetInterruptFlag(bPreviousInterrupt);
+	return bResult;
 }
 
 // send command to keyboard
 // if keyboard failed to execute the command, it returns
 // FALSE.
+// Other scan code coming from keyboard, while waiting for
+// ACK code, goes into queue
 BOOL sendCommandToKeyboard(BYTE command) {
-    int i, j;
+    int i;
 
     // it is possible that when you want to send data to
     // keyboard, input buffer is already full. so it loops as
@@ -94,6 +161,7 @@ BOOL sendCommandToKeyboard(BYTE command) {
     kOutPortByte(0x60, command);
 
     // check if keyboard took command from input buffer
+    // otherwise, return False which means fail
     for (i = 0; i < 0xFFFF; i++) {
         if (kIsInputBufferFull() == FALSE) {
             break;
@@ -103,31 +171,9 @@ BOOL sendCommandToKeyboard(BYTE command) {
         return FALSE;
     }
 
-    // wait until ACK (acknowledge) comes back from keyboard
-    // keyboard always reply to command
-    // just in case keyboard output buffer (0x60) already has
-    // data, we accept up to 100 data from output buffer so
-    // we can check if keyboard replied to our command
-    // since we do not use keyboard before keyboard activation,
-    // all data in output buffer and input buffer are junk data.
-    for (j = 0; j < 100; j++) {
-
-        // wait for 0xFFFF time until output buffer becomes ready to read
-        // because it requires time for controller to fill data to output
-        // buffer after user read data from output or keyboard executes
-        // command
-        for (i = 0; i < 0xFFFF; i++) {
-            if (kIsOutputBufferFull()) {
-                break;
-              }
-         }
-
-         // check if keyboard sent ACK (0xFA)
-        if (kInPortByte(0x60) == 0xFA) {
-            return TRUE;
-         }
-    }
-    return FALSE;
+    // if keyboard took the command, then waits ACK code.
+    // if there is no reply from keyboard, return False
+    return kWaitForACKAndPutOtherScanCode();
 }
 
 // if you set 0xD0 to controller register
@@ -189,6 +235,11 @@ void kReboot(void) {
 
 // keyboard manager that stores states of keyboard
 static KEYBOARDMANAGER gs_stKeyboardManager = {0, };
+
+// Queue that keeps keyboard input (scan code)
+// and its array
+static QUEUE gs_stKeyQueue;
+static KEYDATA gs_vstKeyQueueBuffer[KEY_MAXQUEUECOUNT];
 
 // table for converting scan code to ASCII code
 static KEYMAPPINGENTRY gs_vstKeyMappingTable[ KEY_MAPPINGTABLEMAXCOUNT ] =
@@ -466,6 +517,55 @@ BOOL kConvertScanCodeToASCIICode(BYTE bScanCode, BYTE *pbASCIICode,
     return TRUE;
 }
 
+// initialize keyboard
+BOOL kInitializeKeyboard(void) {
+	// initialize queue
+	kInitializeQueue( &gs_stKeyQueue, gs_vstKeyQueueBuffer, KEY_MAXQUEUECOUNT,
+			sizeof(KEYDATA));
+
+	return kAcitivateKeyboard();
+}
+
+// convert scan code to internally used KeyData and then
+// push to queue
+BOOL kConvertScanCodeAndPutQueue(BYTE bScanCode) {
+	KEYDATA stData;
+	BOOL bResult = FALSE;
+	BOOL bPreviousInterrupt;
+
+	stData.bScanCode = bScanCode;
+
+	if (kConvertScanCodeToASCIICode( bScanCode, & ( stData.bASCIICode ),
+			&( stData.bFlags ) ) == TRUE ) {
+		// disable interrupt
+		bPreviousInterrupt = kSetInterruptFlag( FALSE );
+
+		bResult = kPutQueue( &gs_stKeyQueue, &stData );
+
+		// restore previous interrupt
+		kSetInterruptFlag( bPreviousInterrupt );
+	}
+	return bResult;
+}
+
+// get key data from keyboard queue
+BOOL kGetKeyFromKeyQueue(KEYDATA *pstData) {
+	BOOL bResult;
+	BOOL bPreviousInterrupt;
+
+	if (kIsQueueEmpty(&gs_stKeyQueue) == TRUE) {
+		return FALSE;
+	}
+
+	// disable Interrupt
+	bPreviousInterrupt = kSetInterruptFlag(FALSE);
+	// get data from queue
+	bResult = kGetQueue(&gs_stKeyQueue, pstData);
+
+	// restore interrupt state
+	kSetInterruptFlag(bPreviousInterrupt);
+	return bResult;
+}
 
 
 

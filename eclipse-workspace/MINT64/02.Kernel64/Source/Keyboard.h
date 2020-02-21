@@ -55,6 +55,8 @@
 #define KEY_F11         0x9E
 #define KEY_F12         0x9F
 #define KEY_PAUSE       0xA0
+// maximum size of keyboar queue
+#define KEY_MAXQUEUECOUNT 100
 
 #pragma pack(push ,1)
 
@@ -80,6 +82,15 @@ typedef struct kKeyboardManagerStruct {
 	int iSkipCountForPause;
 } KEYBOARDMANAGER;
 
+typedef struct kKeyDataStruct {
+	// scan code from keyboard
+	BYTE bScanCode;
+	// ASCII code converted from scan code
+	BYTE bASCIICode;
+	// flag that stores states (keypress, keyup, shift)
+	BYTE bFlags;
+} KEYDATA;
+
 BOOL kIsOutputBufferFull(void);
 BOOL kIsInputBufferFull(void);
 BOOL kActivateKeyboard(void);
@@ -92,6 +103,8 @@ BOOL kIsNumberOrSymbolScanCode(BYTE bScanCode);
 BOOL kShouldUseCombinedCode(BYTE bScanCode);
 void updateCombinationKeyStatusAndLED(BYTE bScanCode);
 BOOL kConvertScanCodeToASCIICode(BYTE bScanCode, BYTE *pbASCIICode, BOOL *pbFlags);
-
+BOOL kInitializeKeyboard(void);
+BOOL kGetKeyFromKeyQueue(KEYDATA *pstData);
+BOOL kWaitForACKAndPutOtherScanCode(void);
 #endif /* __KEYBOARD_H__ */
 
