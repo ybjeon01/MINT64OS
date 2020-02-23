@@ -106,5 +106,6 @@ BOOL kConvertScanCodeToASCIICode(BYTE bScanCode, BYTE *pbASCIICode, BOOL *pbFlag
 BOOL kInitializeKeyboard(void);
 BOOL kGetKeyFromKeyQueue(KEYDATA *pstData);
 BOOL kWaitForACKAndPutOtherScanCode(void);
+BOOL kConvertScanCodeAndPutQueue(BYTE bScanCode);
 #endif /* __KEYBOARD_H__ */
 

@@ -1,4 +1,5 @@
 #include "Queue.h"
+#include "Utility.h"
 
 // initialize Queue
 void kInitializeQueue(QUEUE *pstQueue, void *pvQueueBuffer, int iMaxDataCount,
@@ -32,7 +33,7 @@ BOOL kIsQueueEmpty(const QUEUE *pstQueue) {
 
 // put a data to queue
 BOOL kPutQueue(QUEUE *pstQueue, const void *pvData) {
-    if ( kisQueueFull( pstQueue ) ) {
+    if ( kIsQueueFull( pstQueue ) ) {
         return FALSE;
     }
     // copy pvData to queue's iPutIdex pointer
@@ -48,7 +49,7 @@ BOOL kPutQueue(QUEUE *pstQueue, const void *pvData) {
 
 // get data from queue
 BOOL kGetQueue(QUEUE *pstQueue, void *pvData) {
-	if ( kisQueueEmpty(pstQueue) ) {
+	if ( kIsQueueEmpty(pstQueue) ) {
 		return FALSE;
 	}
 	// copy data in Queue to pvData

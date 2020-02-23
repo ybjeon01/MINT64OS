@@ -7,7 +7,7 @@ SECTION .text
 global kInPortByte, kOutPortByte, kLoadGDTR, kLoadTR, kLoadIDTR
 
 ; enable or disable inetrrupt or readRFLAGS
-global kEnableInterrupt, kDisableInterrupt, kReadFLAGS
+global kEnableInterrupt, kDisableInterrupt, kReadRFLAGS
 
 ; read one byte from port
 ; param: port address

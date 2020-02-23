@@ -1,4 +1,5 @@
 #include "Utility.h"
+#include "AssemblyUtility.h"
 
 // fill destination with bData as many as iSize
 void kMemSet(void *pvDestination, BYTE bData, int iSize) {
@@ -20,7 +21,7 @@ int kMemCpy(void *pvDestination, const void *pvSource, int iSize) {
 }
 
 // compare data in pvSource with data in pvDestination as many as iSize
-int kmemCmp (const void *pvDestination, const void *pvSource, int iSize) {
+int kMemCmp (const void *pvDestination, const void *pvSource, int iSize) {
 	int i;
 	char cTemp;
 
@@ -31,4 +32,22 @@ int kmemCmp (const void *pvDestination, const void *pvSource, int iSize) {
 		}
 	}
 	return 0;
+}
+
+// change interrupt flag of RFLAGS register and
+// return previous state of interrupt flag
+BOOL kSetInterruptFlag(BOOL bEnableInterrupt) {
+	QWORD qwRFLAGS;
+
+	qwRFLAGS = kReadRFLAGS();
+
+	if ( bEnableInterrupt == TRUE) {
+		kEnableInterrupt();
+	}
+	else {
+		kDisableInterrupt();
+	}
+
+	// check IF bit (interrupt flag, bit 9)
+    return (qwRFLAGS & 0x0200);
 }

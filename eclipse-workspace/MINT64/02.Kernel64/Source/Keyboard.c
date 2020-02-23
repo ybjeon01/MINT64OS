@@ -2,6 +2,7 @@
 #include "AssemblyUtility.h"
 #include "Keyboard.h"
 #include "Queue.h"
+#include "Utility.h"
 
 BOOL sendCommandToKeyboard(BYTE command);
 
@@ -523,7 +524,7 @@ BOOL kInitializeKeyboard(void) {
 	kInitializeQueue( &gs_stKeyQueue, gs_vstKeyQueueBuffer, KEY_MAXQUEUECOUNT,
 			sizeof(KEYDATA));
 
-	return kAcitivateKeyboard();
+	return kActivateKeyboard();
 }
 
 // convert scan code to internally used KeyData and then

@@ -14,6 +14,7 @@ void Main(void) {
 	BYTE bFlags;
 	BYTE bTemp;
 	int i =0;
+    KEYDATA stData;
 
     kPrintString(0, 10, "Switch To IA-32e Mode Success~!!");
     kPrintString(0, 11, "IA-32e C Language Kernel Start..............[PASS]");
@@ -32,14 +33,14 @@ void Main(void) {
     kLoadIDTR(IDTR_STARTADDRESS);
     kPrintString(45, 14, "PASS");
 
-    kPrintString(0, 15, "Keyboard Activate...........................[    ]");
+    kPrintString(0, 15, "Keyboard Activate And Queue Initialize......[    ]");
 
-    // activate keyboard
+    // activate keyboard and queue which is used for keyboard
     // if keyboard input buffer is full of data for 0xFFFF time, then
     // it fails or if keyboard does not respond to activation code with
     // ACK code, then it also fails. there is one condition that it may
     // fails, but it is really rare. for the detail, read code
-    if (kActivateKeyboard()) {
+    if (kInitializeKeyboard() == TRUE) {
     	kPrintString(45, 15, "Pass");
     	// set Num Lock, Caps Lock, Scroll Lock off
     	kChangeKeyboardLED(FALSE, FALSE, FALSE);
@@ -58,30 +59,21 @@ void Main(void) {
     kPrintString(45, 16, "Pass");
 
    // read keyboard and write to monitor
-    while (TRUE) {
+	while (TRUE) {
 
+        // if queue has a data, then print it to monitor
+        if ( kGetkeyFromKeyQueue( &stData) == TRUE ) {
+            if ( stData.bFlags & KEY_FLAGS_DOWN ) {
+        		  vcTemp[0] = stData.bASCIICode;
+                kPrintString(i++, 17, vcTemp);
+            }
 
+            // when input is 0, then Divide Error Exception happens
+            if (vcTemp[0] == '0') {
+                bTemp = bTemp / 0;
+              }
 
-    	// if keyboard output buffer (0x60) is full then you can read
-    	// scan code
-    	if (kIsOutputBufferFull()) {
-    		// read from 0x60 port
-    		bTemp = kGetKeyboardScanCode();
-
-    		// convert scan code to ASCII code with detail info
-    		// for example if user pressed or released key or input is
-    		// special key
-            if (kConvertScanCodeToASCIICode(bTemp, &(vcTemp[0]), &bFlags)) {
-            	if (bFlags & KEY_FLAGS_DOWN) {
-					kPrintString(i++, 17, vcTemp);
-
-					if (vcTemp[0] == '0') {
-						bTemp = bTemp / 0;
-					}
-				}
-			}
-    	}
-
+        }
     }
 }
 
