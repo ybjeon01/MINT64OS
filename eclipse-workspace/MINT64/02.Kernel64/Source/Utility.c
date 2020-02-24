@@ -49,5 +49,10 @@ BOOL kSetInterruptFlag(BOOL bEnableInterrupt) {
 	}
 
 	// check IF bit (interrupt flag, bit 9)
-    return (qwRFLAGS & 0x0200);
+	// 'qwRFLAGS & 0x0200' is bit operation so you should not use
+	// "return qwRFLAGS & 0x0200;"
+    if (qwRFLAGS & 0x0200) {
+    	return TRUE;
+    }
+    return FALSE;
 }

@@ -45,7 +45,7 @@ void kCommonInterruptHandler(int iVectorNumber) {
 void kKeyboardHandler(int iVectorNumber) {
     char vcBuffer[] = "[INT:  , ]";
     // count how many interrupt occurs
-    static int g_iCommonInterruptCount = 0;
+    static int g_iKeyboardInterruptCount = 0;
     BYTE bTemp;
 
     // interrupt number as ASCII two-digit number
@@ -53,9 +53,9 @@ void kKeyboardHandler(int iVectorNumber) {
     vcBuffer[6] = '0' + iVectorNumber % 10;
 
     // interrupt count
-    vcBuffer[8] = '0' + g_iCommonInterruptCount;
-    g_iCommonInterruptCount = (g_iCommonInterruptCount + 1) % 10;
-    kPrintString(70, 0, vcBuffer);
+    vcBuffer[8] = '0' + g_iKeyboardInterruptCount;
+    g_iKeyboardInterruptCount = (g_iKeyboardInterruptCount + 1) % 10;
+    kPrintString(60, 0, vcBuffer);
 
     if ( kIsOutputBufferFull() == TRUE ) {
     	bTemp = kGetKeyboardScanCode();

@@ -540,7 +540,6 @@ BOOL kConvertScanCodeAndPutQueue(BYTE bScanCode) {
 			&( stData.bFlags ) ) == TRUE ) {
 		// disable interrupt
 		bPreviousInterrupt = kSetInterruptFlag( FALSE );
-
 		bResult = kPutQueue( &gs_stKeyQueue, &stData );
 
 		// restore previous interrupt

@@ -61,20 +61,19 @@ void Main(void) {
    // read keyboard and write to monitor
 	while (TRUE) {
 
-        // if queue has a data, then print it to monitor
-        if ( kGetkeyFromKeyQueue( &stData) == TRUE ) {
-            if ( stData.bFlags & KEY_FLAGS_DOWN ) {
-        		  vcTemp[0] = stData.bASCIICode;
-                kPrintString(i++, 17, vcTemp);
-            }
+		// if queue has a data, then print it to monitor
+		if ( kGetKeyFromKeyQueue( &stData) == TRUE ) {
+			if ( stData.bFlags & KEY_FLAGS_DOWN ) {
+				vcTemp[0] = stData.bASCIICode;
+				kPrintString(i++, 17, vcTemp);
+			}
 
-            // when input is 0, then Divide Error Exception happens
-            if (vcTemp[0] == '0') {
-                bTemp = bTemp / 0;
-              }
-
-        }
-    }
+			// when input is 0, then Divide Error Exception happens
+			if (vcTemp[0] == '0') {
+				bTemp = bTemp / 0;
+			}
+		}
+	}
 }
 
 void kPrintString(int iX, int iY, const char *pcString) {
