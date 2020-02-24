@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="pbFlags"/>
+		<item key="selection" value="kISRKeyboard"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="kISRKeyboard"/>
+			<item value="keyboard"/>
+			<item value="kGetkeyFromKeyQueue"/>
 			<item value="pbFlags"/>
 			<item value="kSetInterrupt"/>
 			<item value="kInitializeKeyboard"/>
@@ -20,9 +23,6 @@
 			<item value="IDT_FLAGS_IST1, IDT_TYPE_INTERRUPT"/>
 			<item value="IDTR_STARTADDRESS"/>
 			<item value="IDTENTRY"/>
-			<item value="GDT_FLAGS_LOWER_KERNELCODE"/>
-			<item value="GDTR"/>
-			<item value="GDTENTRY8"/>
 		</list>
 		<list key="replacehistory">
 			<item value="IDT_FLAGS_KERNEL, IDT_TYPE_INTERRUPT"/>

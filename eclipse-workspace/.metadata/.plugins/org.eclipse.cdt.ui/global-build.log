@@ -17299,3 +17299,2518 @@ make[1]: Leaving directory '/tmp/guest-cfgpzs/MINT64OS/eclipse-workspace/MINT64/
 
 ============== All Build Complete ==============
 
+20:38:41 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+nasm -o BootLoader.bin BootLoader.asm
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+nasm -o Temp/EntryPoint.bin Source/EntryPoint.s
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -c ../Source/Main.c
+gcc -m32 -ffreestanding -c ../Source/Page.c
+nasm -f elf32 -o ModeSwitch.o ../Source/ModeSwitch.asm
+ld -melf_i386 -T ../elf_i386.x -nostdlib -e Main -Ttext 0x10200 -o Kernel32.elf Main.o Page.o ModeSwitch.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+nasm -f elf64 -o EntryPoint.o ../Source/EntryPoint.s
+gcc -m64 -ffreestanding -c ../Source/Main.c
+../Source/Main.c: In function 'Main':
+../Source/Main.c:65:14: warning: implicit declaration of function 'kGetkeyFromKeyQueue'; did you mean 'kGetKeyFromKeyQueue'? [-Wimplicit-function-declaration]
+         if ( kGetkeyFromKeyQueue( &stData) == TRUE ) {
+              ^~~~~~~~~~~~~~~~~~~
+              kGetKeyFromKeyQueue
+../Source/Main.c:73:31: warning: division by zero [-Wdiv-by-zero]
+                 bTemp = bTemp / 0;
+                               ^
+gcc -m64 -ffreestanding -c ../Source/Queue.c
+gcc -m64 -ffreestanding -c ../Source/InterruptHandler.c
+../Source/InterruptHandler.c: In function 'kCommonExceptionHandler':
+../Source/InterruptHandler.c:13:5: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+     kPrintString(0, 0, "==================================================");
+     ^~~~~~~~~~~~
+gcc -m64 -ffreestanding -c ../Source/Descriptor.c
+../Source/Descriptor.c: In function 'kDummyHandler':
+../Source/Descriptor.c:208:5: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+     kPrintString(0, 17, "==================================================");
+     ^~~~~~~~~~~~
+gcc -m64 -ffreestanding -c ../Source/Utility.c
+gcc -m64 -ffreestanding -c ../Source/PIC.c
+gcc -m64 -ffreestanding -c ../Source/Keyboard.c
+nasm -f elf64 -o ISR.o ../Source/ISR.asm
+nasm -f elf64 -o AssemblyUtility.o ../Source/AssemblyUtility.asm
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+Main.o: In function `Main':
+Main.c:(.text+0x19d): undefined reference to `kGetkeyFromKeyQueue'
+../makefile:53: recipe for target 'Kernel64.elf' failed
+make[2]: *** [Kernel64.elf] Error 1
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+makefile:22: recipe for target 'ExecuteInternalBuild' failed
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+makefile:27: recipe for target 'Kernel64' failed
+make[1]: *** [ExecuteInternalBuild] Error 2
+make: *** [Kernel64] Error 2
+"make all" terminated with exit code 2. Build might be incomplete.
+20:40:11 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+../Source/Main.c: In function 'Main':
+../Source/Main.c:65:14: warning: implicit declaration of function 'kGetkeyFromKeyQueue'; did you mean 'kGetKeyFromKeyQueue'? [-Wimplicit-function-declaration]
+         if ( kGetkeyFromKeyQueue( &stData) == TRUE ) {
+              ^~~~~~~~~~~~~~~~~~~
+              kGetKeyFromKeyQueue
+../Source/Main.c:73:31: warning: division by zero [-Wdiv-by-zero]
+                 bTemp = bTemp / 0;
+                               ^
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+Main.o: In function `Main':
+Main.c:(.text+0x19d): undefined reference to `kGetkeyFromKeyQueue'
+../makefile:53: recipe for target 'Kernel64.elf' failed
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+makefile:22: recipe for target 'ExecuteInternalBuild' failed
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+makefile:27: recipe for target 'Kernel64' failed
+make[2]: *** [Kernel64.elf] Error 1
+make[1]: *** [ExecuteInternalBuild] Error 2
+make: *** [Kernel64] Error 2
+"make all" terminated with exit code 2. Build might be incomplete.
+20:40:30 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+../Source/Main.c: In function 'Main':
+../Source/Main.c:73:31: warning: division by zero [-Wdiv-by-zero]
+                 bTemp = bTemp / 0;
+                               ^
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+gcc -o ImageMaker ImageMaker.c
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:40:43 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+../Source/Main.c: In function 'Main':
+../Source/Main.c:73:31: warning: division by zero [-Wdiv-by-zero]
+                 bTemp = bTemp / 0;
+                               ^
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:44:55 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+../Source/Main.c: In function 'Main':
+../Source/Main.c:73:19: warning: division by zero [-Wdiv-by-zero]
+     bTemp = bTemp / 0;
+                   ^
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:47:25 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+../Source/Main.c: In function 'Main':
+../Source/Main.c:72:19: warning: division by zero [-Wdiv-by-zero]
+     bTemp = bTemp / 0;
+                   ^
+gcc -m64 -ffreestanding -c ../Source/InterruptHandler.c
+../Source/InterruptHandler.c: In function 'kCommonExceptionHandler':
+../Source/InterruptHandler.c:13:5: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+     kPrintString(0, 0, "==================================================");
+     ^~~~~~~~~~~~
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:47:53 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/InterruptHandler.c
+../Source/InterruptHandler.c: In function 'kCommonExceptionHandler':
+../Source/InterruptHandler.c:13:5: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+     kPrintString(0, 0, "==================================================");
+     ^~~~~~~~~~~~
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:52:07 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/InterruptHandler.c
+../Source/InterruptHandler.c: In function 'kCommonExceptionHandler':
+../Source/InterruptHandler.c:13:5: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+     kPrintString(0, 0, "==================================================");
+     ^~~~~~~~~~~~
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:57:36 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/InterruptHandler.c
+../Source/InterruptHandler.c: In function 'kCommonExceptionHandler':
+../Source/InterruptHandler.c:13:5: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+     kPrintString(0, 0, "==================================================");
+     ^~~~~~~~~~~~
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+20:59:19 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+../Source/Main.c:76:1: error: expected identifier or '(' before '}' token
+ }
+ ^
+make[2]: *** [Main.o] Error 1
+../makefile:44: recipe for target 'Main.o' failed
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+make[1]: *** [ExecuteInternalBuild] Error 2
+make: *** [Kernel64] Error 2
+makefile:22: recipe for target 'ExecuteInternalBuild' failed
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+makefile:27: recipe for target 'Kernel64' failed
+"make all" terminated with exit code 2. Build might be incomplete.
+20:59:29 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:03:56 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:05:28 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+gcc -m64 -ffreestanding -c ../Source/InterruptHandler.c
+../Source/InterruptHandler.c: In function 'kCommonExceptionHandler':
+../Source/InterruptHandler.c:13:5: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+     kPrintString(0, 0, "==================================================");
+     ^~~~~~~~~~~~
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:06:48 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+../Source/Main.c: In function 'Main':
+../Source/Main.c:73:19: warning: division by zero [-Wdiv-by-zero]
+     bTemp = bTemp / 0;
+                   ^
+gcc -m64 -ffreestanding -c ../Source/InterruptHandler.c
+../Source/InterruptHandler.c: In function 'kCommonExceptionHandler':
+../Source/InterruptHandler.c:13:5: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+     kPrintString(0, 0, "==================================================");
+     ^~~~~~~~~~~~
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:12:47 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Keyboard.c
+../Source/Keyboard.c: In function 'kConvertScanCodeAndPutQueue':
+../Source/Keyboard.c:544:4: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+    kPrintString(71, 0, "previous interrupt is set");
+    ^~~~~~~~~~~~
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:12:57 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Keyboard.c
+../Source/Keyboard.c: In function 'kConvertScanCodeAndPutQueue':
+../Source/Keyboard.c:544:4: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+    kPrintString(15, 0, "previous interrupt is set");
+    ^~~~~~~~~~~~
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:13:10 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Keyboard.c
+../Source/Keyboard.c: In function 'kConvertScanCodeAndPutQueue':
+../Source/Keyboard.c:543:8: error: 'PreviousInterrupt' undeclared (first use in this function); did you mean 'bPreviousInterrupt'?
+   if (!PreviousInterrupt) {
+        ^~~~~~~~~~~~~~~~~
+        bPreviousInterrupt
+../Source/Keyboard.c:543:8: note: each undeclared identifier is reported only once for each function it appears in
+../Source/Keyboard.c:544:4: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+    kPrintString(15, 0, "previous interrupt is set");
+    ^~~~~~~~~~~~
+../makefile:44: recipe for target 'Keyboard.o' failed
+make[2]: *** [Keyboard.o] Error 1
+make[1]: *** [ExecuteInternalBuild] Error 2
+make: *** [Kernel64] Error 2
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+makefile:22: recipe for target 'ExecuteInternalBuild' failed
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+makefile:27: recipe for target 'Kernel64' failed
+"make all" terminated with exit code 2. Build might be incomplete.
+21:13:27 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Keyboard.c
+../Source/Keyboard.c: In function 'kConvertScanCodeAndPutQueue':
+../Source/Keyboard.c:544:4: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+    kPrintString(15, 0, "previous interrupt is set");
+    ^~~~~~~~~~~~
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:13:29 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Keyboard.c
+../Source/Keyboard.c: In function 'kConvertScanCodeAndPutQueue':
+../Source/Keyboard.c:544:4: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+    kPrintString(15, 0, "previous interrupt is set");
+    ^~~~~~~~~~~~
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:14:03 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Keyboard.c
+../Source/Keyboard.c: In function 'kConvertScanCodeAndPutQueue':
+../Source/Keyboard.c:544:4: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+    kPrintString(0, 18, "previous interrupt is set");
+    ^~~~~~~~~~~~
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:14:10 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Keyboard.c
+../Source/Keyboard.c: In function 'kConvertScanCodeAndPutQueue':
+../Source/Keyboard.c:544:4: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+    kPrintString(0, 18, "previous interrupt is set");
+    ^~~~~~~~~~~~
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:14:50 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Utility.c
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:16:53 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Utility.c
+gcc -m64 -ffreestanding -c ../Source/Keyboard.c
+../Source/Keyboard.c: In function 'kConvertScanCodeAndPutQueue':
+../Source/Keyboard.c:544:4: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+    kPrintString(0, 19, "previous interrupt is set");
+    ^~~~~~~~~~~~
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:17:08 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Keyboard.c
+../Source/Keyboard.c: In function 'kConvertScanCodeAndPutQueue':
+../Source/Keyboard.c:544:4: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+    kPrintString(0, 19, "previous interrupt is set");
+    ^~~~~~~~~~~~
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:19:20 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Keyboard.c
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:23:34 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+gcc -m64 -ffreestanding -c ../Source/Keyboard.c
+../Source/Keyboard.c: In function 'kConvertScanCodeAndPutQueue':
+../Source/Keyboard.c:544:4: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+    kPrintString(18,0,"in");
+    ^~~~~~~~~~~~
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:24:50 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/InterruptHandler.c
+../Source/InterruptHandler.c: In function 'kCommonExceptionHandler':
+../Source/InterruptHandler.c:13:5: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+     kPrintString(0, 0, "==================================================");
+     ^~~~~~~~~~~~
+../Source/InterruptHandler.c: In function 'kKeyboardHandler':
+../Source/InterruptHandler.c:60:31: warning: implicit declaration of function 'kSetInterruptFlag' [-Wimplicit-function-declaration]
+     BOOL bPreviousInterrupt = kSetInterruptFlag( TRUE );
+                               ^~~~~~~~~~~~~~~~~
+gcc -m64 -ffreestanding -c ../Source/Keyboard.c
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:25:33 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+../Source/Main.c: In function 'Main':
+../Source/Main.c:61:31: warning: implicit declaration of function 'kSetInterruptFlag' [-Wimplicit-function-declaration]
+     BOOL bPreviousInterrupt = kSetInterruptFlag( TRUE );
+                               ^~~~~~~~~~~~~~~~~
+gcc -m64 -ffreestanding -c ../Source/InterruptHandler.c
+../Source/InterruptHandler.c: In function 'kCommonExceptionHandler':
+../Source/InterruptHandler.c:13:5: warning: implicit declaration of function 'kPrintString' [-Wimplicit-function-declaration]
+     kPrintString(0, 0, "==================================================");
+     ^~~~~~~~~~~~
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
+21:26:06 **** Incremental Build of configuration Default for project MINT64 ****
+make all 
+
+============== Build Boot Loader ==============
+
+make -C 00.BootLoader
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/00.BootLoader'
+============== Build Complete ==============
+
+
+============== Build 32bit Kernel ==============
+
+make -C 01.Kernel32
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+gcc -m32 -ffreestanding -MM ../Source/Main.c ../Source/Page.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel32.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+make[2]: 'Kernel32.elf' is up to date.
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel32.elf Temp/Kernel32.elf.bin
+cat Temp/EntryPoint.bin Temp/Kernel32.elf.bin > Kernel32.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/01.Kernel32'
+
+============== Build Complete ==============
+
+
+============== Build 64bit Kernel ==============
+
+make -C 02.Kernel64
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+mkdir -p Temp
+=== Make Dependency File ===
+make -C Temp -f ../makefile InternalDependency
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -MM ../Source/Main.c ../Source/Queue.c ../Source/InterruptHandler.c ../Source/Descriptor.c ../Source/Utility.c ../Source/PIC.c ../Source/Keyboard.c > Dependency.dep
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+=== Dependency Search Complete ===
+make -C Temp -f ../makefile Kernel64.elf
+make[2]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+gcc -m64 -ffreestanding -c ../Source/Main.c
+../Source/Main.c: In function 'Main':
+../Source/Main.c:73:19: warning: division by zero [-Wdiv-by-zero]
+     bTemp = bTemp / 0;
+                   ^
+ld -melf_x86_64 -T ../elf_x86_64.x -nostdlib -e Main -Ttext 0x200000 -o Kernel64.elf EntryPoint.o Main.o Queue.o InterruptHandler.o Descriptor.o Utility.o PIC.o Keyboard.o ISR.o AssemblyUtility.o
+make[2]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64/Temp'
+objcopy -j .text -j .data -j .rodata -j .bss -S -O binary Temp/Kernel64.elf Kernel64.bin
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/02.Kernel64'
+
+============== Build Complete ==============
+
+
+============== Utility Build Start ==============
+
+make -C 04.Utility
+make[1]: Entering directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/tmp/guest-vseugv/MINT64OS/eclipse-workspace/MINT64/04.Utility'
+
+============== Utility Build Complete ==============
+
+
+============== Disk Image Build Start ==============
+
+04.Utility/ImageMaker 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin 02.Kernel64/Kernel64.bin
+[INFO] Copy boot loader to image file
+[INFO] File size is aligned 512 byte
+[INFO] 00.BootLoader/BootLoader.bin size = [512] and sector count = [1]
+[INFO] Copy protected mode kernel to image file
+[INFO] File size [2549] and fill [11] byte
+[INFO] 00.BootLoader/BootLoader.bin size = [2549] and sector count = [5]
+[INFO] Copy IA-32e mode kernel to image file
+[INFO] File size [11954] and fill [334] byte
+[INFO] 02.Kernel64/Kernel64.bin size = [11954] and sector count = [24]
+[INFO] Start to write kernel information
+[INFO] Total sector count except boot loader [29]
+[INFO] Total sector count of protected mode kernel [29]
+[INFO] Image file create complete
+
+============== All Build Complete ==============
+
