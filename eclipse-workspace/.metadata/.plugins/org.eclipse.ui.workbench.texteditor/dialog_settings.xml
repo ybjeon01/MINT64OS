@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="kISRKeyboard"/>
+		<item key="selection" value="KEY_CAPSLOCK"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="KEY_CAPSLOCK"/>
+			<item value="cap"/>
+			<item value="lock"/>
+			<item value="KEY_SCROLLLOCK"/>
+			<item value="kStrlen"/>
 			<item value="kISRKeyboard"/>
 			<item value="keyboard"/>
 			<item value="kGetkeyFromKeyQueue"/>
@@ -18,11 +23,6 @@
 			<item value="sendCommandToKeyboard"/>
 			<item value="0xFFFF"/>
 			<item value="j &lt; 100"/>
-			<item value="j&lt; 100"/>
-			<item value="kWaitForACKAndP"/>
-			<item value="IDT_FLAGS_IST1, IDT_TYPE_INTERRUPT"/>
-			<item value="IDTR_STARTADDRESS"/>
-			<item value="IDTENTRY"/>
 		</list>
 		<list key="replacehistory">
 			<item value="IDT_FLAGS_KERNEL, IDT_TYPE_INTERRUPT"/>

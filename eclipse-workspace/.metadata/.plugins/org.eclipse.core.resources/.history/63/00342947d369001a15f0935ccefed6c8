@@ -1,0 +1,36 @@
+#include "ConsoleShell.h"
+#include "Console.h"
+#include "Keyboard.h"
+#include "Utility.h"
+#include "Types.h"
+
+// command table
+SHELLCOMMANDENTRY gs_vstCommandTable[] = {
+		{ "help", "Show Help", kHelp },
+		{ "cls", "Clear Screen", kCls },
+		{ "totalram", "Show Total RAM Size", kShowTotalRAMSize },
+		{ "shutdown", "Shutdown And Reboot OS", kShutdown },
+};
+
+// shell main loop
+void kStartConsoleShell( void ) {
+	char vcCommandBuffer[ CONSOLESHELL_MAXCOMMANDBUFFERCOUNT ];
+	int iCommandBufferIndex = 0;
+	BYTE bKey;
+	int iCursorX, iCursorY;
+
+	// print prompt
+	kPrintf( CONSOLESHELL_PROMPTMESSAGE );
+
+	while ( TRUE ) {
+		bKey = kGetCh();
+		if ( bKey == KEY_BACKSPACE ) {
+			if ( iCommandBufferIndex > 0 ) {
+				kGetCursor( &iCursorX, &iCursorY );
+				kPrintStringXY( iCursorX - 1, iCursorY, ' ' );
+				kSetCursor( iCursorX - 1, iCursorY );)
+			}
+		}
+	}
+
+}

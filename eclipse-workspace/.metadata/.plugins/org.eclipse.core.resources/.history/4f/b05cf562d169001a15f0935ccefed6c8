@@ -1,0 +1,12 @@
+#ifndef __CONSOLESHELL_H__
+#define __CONSOLESHELL_H__
+
+#include "Types.h"
+
+// macro
+#define CONSOLESHELL_MAXCOMMANDBUFFERCOUNT 	300
+#define CONSOLE_SHELL_PROMPTMESSAGE 			"MINT64>"
+
+typedef void (* CommandFunction) (const char *pcParameter);
+
+#endif /* _CONSOLESHELL_H_ */

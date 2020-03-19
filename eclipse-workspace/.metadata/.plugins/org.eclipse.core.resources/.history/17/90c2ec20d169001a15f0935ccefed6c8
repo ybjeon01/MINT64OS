@@ -1,0 +1,10 @@
+#ifndef __CONSOLESHELL_H__
+#define __CONSOLESHELL_H__
+
+#include "Types.h"
+
+// macro
+#define CONSOLESHELL_MAXCOMMANDBUFFERCOUNT 300
+
+
+#endif /* _CONSOLESHELL_H_ */
