@@ -100,7 +100,50 @@ int kConsolePrintString( const char *pcBuffer ) {
 			// set cursor location to first index of last line
 			iPrintOffset = (CONSOLE_HEIGHT - 1) * CONSOLE_WIDTH;
 		}
-		return iPrintOffset;
+	}
+	return iPrintOffset;
 }
 
-// stopped here 20200318
+// clear all of character in screen
+void kClearScreen( void ) {
+	CHARACTER *pstScreen = ( CHARACTER *) CONSOLE_VIDEOMEMORYADDRESS;
+	int i;
+
+	// after clearing screen, move cursor location to (0,0)
+	for (i = 0; i < CONSOLE_WIDTH * CONSOLE_HEIGHT; i++ ) {
+		pstScreen[i].bCharacter = ' ';
+		pstScreen[i].bAttribute = CONSOLE_DEFAULTTEXTCOLOR;
+	}
+	kSetCursor(0, 0);
+}
+
+// getch() function in stdio.h
+BYTE kGetCh( void ) {
+	KEYDATA stData;
+
+	while ( TRUE ) {
+		while ( kGetKeyFromKeyQueue( &stData ) == FALSE ) {
+			;
+		}
+		if ( stData.bFlags & KEY_FLAGS_DOWN ) {
+			return stData.bASCIICode;
+		}
+	}
+}
+
+// print string at (x, y)
+void kPrintStringXY( int iX, int iY, const char *pcString ) {
+	CHARACTER *pstScreen = (CHARACTER *) CONSOLE_VIDEOMEMORYADDRESS;
+	int i;
+
+	pstScreen += ( iY * 80 ) + iX;
+	for ( i = 0; pcString[i] != 0; i++ ) {
+		pstScreen[i].bCharacter = pcString[i];
+		pstScreen[i].bAttribute = CONSOLE_DEFAULTTEXTCOLOR;
+	}
+}
+
+
+
+
+
