@@ -59,11 +59,50 @@ void kStartConsoleShell( void ) {
 
 			// fill buffer only if buffer has enough space
 			if ( iCommandBufferIndex < CONSOLESHELL_MAXCOMMANDBUFFERCOUNT ) {
-				vcCommandBuffer[ iCommandBufferIndex++ ] \ bKey;
+				vcCommandBuffer[ iCommandBufferIndex++ ] = bKey;
 				kPrintf( "%c",bKey );
 			}
 		}
 	}
 }
 
-// stoped here
+
+// compare string given by user to commands in buffer and if they matches,
+// execute the command
+void kExecuteCommand(const char *pcCommandBuffer) {
+	int i, iSpaceIndex;
+	int iCommandBufferLength, iCommandLength;
+	int iCount;
+
+	// measure length of command length
+	iCommandBufferLength = kStrLen( pcCommandBuffer );
+	for ( iSpaceIndex = 0; iSpaceIndex < iCommandBufferLength; iSpaceIndex++ ) {
+		if ( pcCommandBuffer[ iSpaceIndex ] == ' ' ) {
+			break;
+		}
+	}
+
+	iCount = sizeof( gs_vstCommandTable) / sizeof( SHELLCOMMANDENTRY );
+	for ( i = 0; i < iCount; i++ ) {
+		iCommandLength = kStrLen( gs_vstCommandTable[i].pcCommand );
+		// compare length of command to that of command buffer
+		if ( ( iCommandLength == iSpaceIndex ) &&
+			  ( kMemCmp( gs_vstCommandTable[i].pcCommand, pcCommandBuffer, iSpaceIndex ) == 0 ) ) {
+			gs_vstCommandTable[i].pfFunction( pcCommandBuffer + iSpaceIndex + 1 );
+			break;
+		}
+	}
+
+	if ( i>= iCount ) {
+		kPrintf(";%s; is not found.\n", pcCommandBuffer );
+	}
+}
+
+
+// initialize parameter structure
+void kInitializeParameter( PARAMETERLIST *pstList, const char *pcParameter ) {
+	pstList->pcBuffer = pcParameter;
+	pstList->iLength = kStrLen( pcParameter);
+	pstList->iCurrentPosition = 0;
+	// stopped
+}
