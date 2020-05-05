@@ -104,5 +104,124 @@ void kInitializeParameter( PARAMETERLIST *pstList, const char *pcParameter ) {
 	pstList->pcBuffer = pcParameter;
 	pstList->iLength = kStrLen( pcParameter);
 	pstList->iCurrentPosition = 0;
-	// stopped
+}
+
+
+// return parameter content and length of it
+int kGetNextParameter( PARAMETERLIST *pstList, char *pcParameter ) {
+	int i;
+	int iLength;
+
+	if ( pstList->iLength <= pstList->iCurrentPosition ) {
+		return 0;
+	}
+
+	for ( i = pstList->iCurrentPosition; i < pstList->iLength; i++ ) {
+		if ( pstList->pcBuffer[i] == ' ' ) {
+			break;
+		}
+	}
+
+	kMemCpy( pcParameter, pstList->pcBuffer + pstList->iCurrentPosition, i );
+	iLength = i - pstList->iCurrentPosition;
+	pcParameter[iLength] = '\0';
+
+	// update parameter current position
+	pstList->iCurrentPosition += iLength + 1;
+	return iLength;
+}
+
+//========================================================================
+// command code
+//========================================================================
+
+// print shell help
+void kHelp(const char *pcCommandBuffer) {
+	int i ;
+	int iCount;
+	int iCursorX, iCursorY;
+	int iLength;
+	int iMaxCommandLength = 0;
+
+	kPrintf("=========================================================\n");
+	kPrintf("                    MINT 64 Shell Help                   \n");
+	kPrintf("=========================================================\n");
+
+	iCount = sizeof( gs_vstCommandTable ) / sizeof( SHELLCOMMANDENTRY );
+
+	// find longest length of commands
+	for ( i = 0; i < iCount; i++ ) {
+		iLength = kStrLen( gs_vstCommandTable[i].pcCommand );
+		if ( iLength > iMaxCommandLength ) {
+			iMaxCommandLength = iLength;
+		}
+	}
+
+	// print help string
+	for ( i = 0; i < iCount; i++ ) {
+		kPrintf( "%s", gs_vstCommandTable[i].pcCommand );
+		kGetCursor( &iCursorX, &iCursorY );
+		kSetCursor( iMaxCommandLength, iCursorY );
+		kPrintf("  -  %s\n", gs_vstCommandTable[i].pcHelp );
+	}
+}
+
+
+// clear all screen
+void kCls( const char *pcParameterBuffer ) {
+	// since first line is used for debugging, cursor move to line 1
+	kClearScreen();
+	kSetCursor( 0, 1 );
+}
+
+
+// show total ram size
+void kShowTotalRamSize( const char *pcParameterBufer ) {
+	kPrintf( "Total Ram Size = %d MB\n", kGetTotalRamSize() );
+}
+
+
+// convert number encoded in ASCII to integer and print the integer
+void kStringToDecimalHexTest( const char *pcParameterBuffer ) {
+	char vcParameter[100];
+	int iLength;
+	PARAMETERLIST stList;
+	int iCount = 0;
+	long lValue;
+
+	// initialize parameter
+	kInitializeParameter( &stList, pcParameterBuffer );
+
+	while ( TRUE ) {
+		iLength = kGetNextParameter( &stList, vcParameter );
+		// when no parameter exists
+		if ( iLength == 0 ) {
+			break;
+		}
+
+		// print parameter and decide the parameter is hex or decimal
+		kPrintf( "Param %d = '%s', Length = %d, ", iCount + 1,
+				vcParameter, iLength );
+
+		if ( kMemCmp(pcParameterBuffer, "0x", 2 ) == 0 ) {
+			lValue = kAToI( vcParameter + 2, 16 );
+			kPrintf( "HEX Value = %q\n", lValue );
+		}
+		else {
+			lValue = kAToI( vcParameter, 10 );
+			kPrintf( "DecimalValue = %d\n", lValue );
+		}
+		iCount++;
+	}
+}
+
+
+// reboot PC
+void kShutdown( const char *pcParameterBuffer ) {
+	kPrintf( "System Shutdown Start...\n" );
+
+	// reboot PC by using keyboard controller
+	kPrintf( "Press Any Key To Reboot PC..." );
+	kGetCh();
+	kReboot();
 }
