@@ -1,8 +1,0 @@
-#ifndef __CONSOLE_H__
-#define __CONSOLE_H__
-
-#include "Types.h"
-
-
-
-#endif /* 02_KERNEL64_SOURCE_CONSOLE_H_ */
