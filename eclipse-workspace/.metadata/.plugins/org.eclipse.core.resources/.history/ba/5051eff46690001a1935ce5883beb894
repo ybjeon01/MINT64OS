@@ -1,0 +1,101 @@
+#include "Utility.h"
+#include "AssemblyUtility.h"
+
+// fill destination with bData as many as iSize
+void kMemSet(void *pvDestination, BYTE bData, int iSize) {
+	int i;
+
+	for (i = 0; i < iSize; i++) {
+		( (char *) pvDestination )[i] = bData;
+	}
+}
+
+// copy data in pvSource to pvDestination as many as iSize
+int kMemCpy(void *pvDestination, const void *pvSource, int iSize) {
+    int i;
+
+    for (i=0; i < iSize; i++) {
+    	( (char *) pvDestination)[i] = ( (char *) pvSource)[i];
+    }
+    return iSize;
+}
+
+// compare data in pvSource with data in pvDestination as many as iSize
+int kMemCmp (const void *pvDestination, const void *pvSource, int iSize) {
+	int i;
+	char cTemp;
+
+	for (i = 0; i < iSize; i++) {
+		cTemp = ( (char *) pvDestination)[i] - ( (char *) pvSource)[i];
+		if (cTemp != 0) {
+			return (int) cTemp;
+		}
+	}
+	return 0;
+}
+
+// change interrupt flag of RFLAGS register and
+// return previous state of interrupt flag
+BOOL kSetInterruptFlag(BOOL bEnableInterrupt) {
+	QWORD qwRFLAGS;
+
+	qwRFLAGS = kReadRFLAGS();
+
+	if ( bEnableInterrupt == TRUE) {
+		kEnableInterrupt();
+	}
+	else {
+		kDisableInterrupt();
+	}
+
+	// check IF bit (interrupt flag, bit 9)
+	// 'qwRFLAGS & 0x0200' is bit operation so you should not use
+	// "return qwRFLAGS & 0x0200;"
+    if (qwRFLAGS & 0x0200) {
+    	return TRUE;
+    }
+    return FALSE;
+}
+
+
+// return length of string
+int kStrLen( const char *pcBuffer ) {
+	int i;
+	for ( i = 0; ; i++ ) {
+		if (pcBuffer[i] == '\0' ) {
+			break;
+		}
+	}
+	return i;
+}
+
+
+// total size of ram (unit: MB)
+static gs_qwTotalRAMMBSize = 0;
+
+
+// check ram size above 64MB
+// you must call only once this function during booting
+void kCheckTotalRAMSize( void ) {
+	DWORD *pdwCurrentAddress;
+	DWORD dwPreviousValue;
+
+	pdwCurrentAddress = ( DWORD * ) 0x4000000;
+
+	// check start address of every 4MB chunk
+	while ( TRUE ) {
+		// because we check valid address by trying to write to the address
+		// it is necessary to save original data in the address before checking
+		dwPreviousValue = *pdwCurrentAddress;
+
+		// if address to write is valid, then reading will be no problem
+		*pdwCurrentAddress = 0x12345678;
+		if ( *pdwCurrentAddress != 0x12345678 ) {
+			break;
+		}
+		*pdwCurrentAddress = dwPreviousValue;
+		pdwCurrentAddress += ( 0x400000 / 4 );
+
+	}
+}
+

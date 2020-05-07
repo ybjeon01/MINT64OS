@@ -1,0 +1,265 @@
+#include "Utility.h"
+#include "AssemblyUtility.h"
+
+// fill destination with bData as many as iSize
+void kMemSet(void *pvDestination, BYTE bData, int iSize) {
+	int i;
+
+	for (i = 0; i < iSize; i++) {
+		( (char *) pvDestination )[i] = bData;
+	}
+}
+
+// copy data in pvSource to pvDestination as many as iSize
+int kMemCpy(void *pvDestination, const void *pvSource, int iSize) {
+    int i;
+
+    for (i=0; i < iSize; i++) {
+    	( (char *) pvDestination)[i] = ( (char *) pvSource)[i];
+    }
+    return iSize;
+}
+
+// compare data in pvSource with data in pvDestination as many as iSize
+int kMemCmp (const void *pvDestination, const void *pvSource, int iSize) {
+	int i;
+	char cTemp;
+
+	for (i = 0; i < iSize; i++) {
+		cTemp = ( (char *) pvDestination)[i] - ( (char *) pvSource)[i];
+		if (cTemp != 0) {
+			return (int) cTemp;
+		}
+	}
+	return 0;
+}
+
+// change interrupt flag of RFLAGS register and
+// return previous state of interrupt flag
+BOOL kSetInterruptFlag(BOOL bEnableInterrupt) {
+	QWORD qwRFLAGS;
+
+	qwRFLAGS = kReadRFLAGS();
+
+	if ( bEnableInterrupt == TRUE) {
+		kEnableInterrupt();
+	}
+	else {
+		kDisableInterrupt();
+	}
+
+	// check IF bit (interrupt flag, bit 9)
+	// 'qwRFLAGS & 0x0200' is bit operation so you should not use
+	// "return qwRFLAGS & 0x0200;"
+    if (qwRFLAGS & 0x0200) {
+    	return TRUE;
+    }
+    return FALSE;
+}
+
+
+// return length of string
+int kStrLen( const char *pcBuffer ) {
+	int i;
+	for ( i = 0; ; i++ ) {
+		if (pcBuffer[i] == '\0' ) {
+			break;
+		}
+	}
+	return i;
+}
+
+
+// total size of ram (unit: MB)
+static gs_qwTotalRAMMBSize = 0;
+
+
+// check ram size above 64MB
+// you must call this function at least once during booting
+// for kGetTotalRAMSize function
+void kCheckTotalRAMSize( void ) {
+	DWORD *pdwCurrentAddress;
+	DWORD dwPreviousValue;
+
+	pdwCurrentAddress = ( DWORD * ) 0x4000000;
+
+	// check start address of every 4MB chunk
+	while ( TRUE ) {
+		// because we check valid address by trying to write to the address
+		// it is necessary to save original data in the address before checking
+		dwPreviousValue = *pdwCurrentAddress;
+
+		// if address to write is valid, then reading will be no problem
+		*pdwCurrentAddress = 0x12345678;
+		if ( *pdwCurrentAddress != 0x12345678 ) {
+			break;
+		}
+		*pdwCurrentAddress = dwPreviousValue;
+		// reason for dividing by four is that variable type is pointer of
+		// double word (4 bytes)
+		pdwCurrentAddress += ( 0x400000 / 4 );
+		gs_qwTotalRAMMBSize = ( QWORD ) pdwCurrentAddress / 0x100000;
+	}
+}
+
+
+// return RAM size
+QWORD kGetTotalRAMSize( void ) {
+	return gs_qwTotalRAMMBSize;
+}
+
+
+// internal implementation of atoi()
+long kAToI( const char *pcBuffer, int iRadix ) {
+	long lReturn;
+
+	switch ( iRadix ) {
+
+	case 16:
+		lReturn = kHexStringToQword( pcBuffer );
+		break;
+
+	case 10:
+	default:
+		lReturn = kDecimalStringToLong( pcBuffer );
+		break;
+	}
+	return lReturn;
+}
+
+
+// hex ACSII string to QWORD integer
+QWORD kHexStringToQword( const char *pcBuffer ) {
+	QWORD qwValue = 0;
+	int i;
+
+	for ( i = 0; pcBuffer[i] != '\0'; i++ ) {
+		qwValue *= 16;
+		if ( ( 'A' <= pcBuffer[i] ) && ( pcBuffer[i] <= 'Z' ) ) {
+			qwValue += ( pcBuffer[i] - 'A' ) + 10;
+		}
+		else if ( ( 'a' <= pcBuffer[i] ) && ( pcBuffer[i] <= 'z' ) ) {
+			qwValue += ( pcBuffer[i] - 'a' ) + 10;
+		}
+		else {
+			qwValue += pcBuffer[i] - '0';
+		}
+	}
+	return qwValue;
+}
+
+
+// decimal string to long integer
+long kDecimalStringToLong( const char *pcBuffer ) {
+	long lValue = 0;
+	int i;
+
+	// take care of negative sign later in the code
+	if ( pcBuffer[0] == '-' ) {
+		i = 1;
+	}
+	else {
+		i = 0;
+	}
+
+	for ( ; pcBuffer[i] != '\0'; i++ ) {
+		lValue *= 10;
+		lValue += pcBuffer[i] - '0';
+	}
+
+	if ( pcBuffer[0] == '-' ) {
+		lValue = -lValue;
+	}
+	return lValue;
+}
+
+
+// internal implementation of itoa()
+int kIToA( long lValue, char *pcBuffer, int iRadix ) {
+	int iReturn;
+
+	switch ( iRadix ) {
+	case 16:
+		iReturn = khexToString( lValue, pcBuffer );
+		break;
+
+	case 10:
+	default:
+		iReturn = kDecimalToString( lValue, pcBuffer );
+		break;
+	}
+	return iReturn;
+}
+
+
+// convert hex integer to ASCII string
+int kHexToString( QWORD qwValue, char *pcBuffer ) {
+	QWORD i;
+	QWORD qwCurrentValue;
+
+	// if integer is zero
+	if ( qwValue == 0 ) {
+		pcBuffer[0] = '0';
+		pcBuffer[1] = '\0';
+		return 1;
+	}
+
+	for ( i = 0; qwValue > 0; i++ ) {
+		qwCurrentValue = qwValue % 16;
+		if ( qwCurrentValue >= 10 ) {
+			pcBuffer[i] = 'A' + ( qwCurrentValue - 10 );
+		}
+		else {
+			pcBuffer[i] = '0' + qwCurrentValue;
+		}
+
+		qwValue /= 16;
+	}
+	pcBuffer[i] = '\0';
+
+	kReverseString( pcBuffer );
+	return i;
+}
+
+
+// convert decimal integer to ASCII string
+int kDecimalToString( long lValue, char *pcBuffer ) {
+	long i;
+
+	// value is zero
+	if ( lValue == 0 ) {
+		pcBuffer[0] = '0';
+		pcBuffer[1] = '\0';
+		return 1;
+	}
+
+	// add negative sign
+	if ( lValue < 0 ) {
+		i = 1;
+		pcBuffer[0] = '-';
+		lValue = -lValue;
+	}
+	else {
+		i = 0;
+	}
+
+	for ( ; lValue > 0; i++ ) {
+		pcBuffer[i] = '0' + lValue % 10;
+		lValue /= 10;
+	}
+	pcBuffer[i] = '\0';
+
+	if ( pcBuffer[0] == '-') {
+		kReverseString( &(pcBuffer[1]) );
+	}
+	else {
+		kReverseString( pcBuffer );
+	}
+	return i;
+}
+
+
+// reverse string in place
+
+
+
